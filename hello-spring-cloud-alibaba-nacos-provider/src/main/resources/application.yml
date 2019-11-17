@@ -1,0 +1,50 @@
+spring:
+  #服务名称
+  application:
+    name: nacos-provider
+  #nacos注册中心地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  #数据库连接池
+  datasource:
+    druid:
+      username: root
+      password: 111111
+      url: jdbc:mysql://127.0.0.1:3306/myshop?useUnicode=true&characterEncoding=utf8
+      initial-size: 10
+      max-active: 50
+      validation-query: select 1
+      test-on-return: false
+      max-pool-prepared-statement-per-connection-size: 20
+  #redis配置
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+    sentinel:
+      master: mymaster
+      nodes: 192.168.2.101:26379, 192.168.2.101:26380, 192.168.2.101:26381
+
+server:
+  port: 8084
+
+#端点检查
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+##mybatis配置
+mybatis:
+  type-aliases-package: com.zlm.hello.spring.cloud.alibaba.nacos.provider.model
+  mapper-locations: classpath:mapper/*Mapper*.xml
+  configuration:
+    cache-enabled: true
+logging:
+  level:
+   com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao : debug
