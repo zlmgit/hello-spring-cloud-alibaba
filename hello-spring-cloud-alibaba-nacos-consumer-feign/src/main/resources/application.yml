@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: nacos-consumer-feign
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    #sentinel监控台配置
+    sentinel:
+      transport:
+        #向监控台暴露的端口
+        port: 8719
+        #监控台ip
+        dashboard: localhost:8080
+
+server:
+  port: 9092
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#开启熔断保护
+feign:
+  sentinel:
+    enabled: true
