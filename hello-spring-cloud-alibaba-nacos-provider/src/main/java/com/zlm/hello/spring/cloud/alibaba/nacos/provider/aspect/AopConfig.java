@@ -18,9 +18,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Map;
 
-@Order(0)
-@Aspect
-@Component
+//@Order(0)
+//@Aspect
+//@Component
 public class AopConfig {
 
     @Pointcut("@annotation(actionLog)")
