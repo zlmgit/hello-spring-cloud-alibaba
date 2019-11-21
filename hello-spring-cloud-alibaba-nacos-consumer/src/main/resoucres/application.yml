@@ -1,6 +1,8 @@
 spring:
+  #服务名称
   application:
     name: nacos-consumer
+  #nacos注册中心地址
   cloud:
     nacos:
       discovery:
@@ -9,8 +11,10 @@ spring:
 server:
   port: 9091
 
+#端点检查
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+

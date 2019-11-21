@@ -18,4 +18,9 @@ public class RedisService {
     public Object get(String key){
         return redisTemplate.opsForValue().get(key);
     }
+
+    public Long getExpireByKey(String key){
+        Long expire = redisTemplate.getExpire(key, TimeUnit.SECONDS);
+        return expire;
+    }
 }
