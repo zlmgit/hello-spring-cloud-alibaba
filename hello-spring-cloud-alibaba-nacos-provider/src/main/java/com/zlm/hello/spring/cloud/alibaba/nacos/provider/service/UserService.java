@@ -25,4 +25,16 @@ public interface UserService {
      * @return
      */
     int insertUser(User user);
+
+    /**
+     * 事务测试
+     * 两条都会回滚
+     */
+    void testTransactional(User user);
+
+    /**
+     * 事务测试
+     * 两条都会回滚
+     */
+    void testTransactional2(User user);
 }

@@ -2,7 +2,6 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider.controller;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.aspect.ActionLog;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
-import com.zlm.hello.spring.cloud.alibaba.nacos.provider.redis.RedisService;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -23,40 +22,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RedisService redisService;
-
     @GetMapping("getUser/{id}")
     @ApiOperation("根据用户ID用户")
     @ApiImplicitParams(@ApiImplicitParam(name = "id" ,value = "用户id" ,required = true,dataTypeClass = Integer.class))
     public User selectUserById(@PathVariable Integer id) {
         return userService.selectUserOne(id);
-    }
-
-    @PostMapping("insert/{key}/{value}")
-    @ApiOperation("Redis新增接口插入key-value")
-    public String insertRedis(@PathVariable(value = "key") String key ,@PathVariable(value = "value") String value){
-        redisService.put(key,value ,60 );
-        return "Ok";
-    }
-    @ActionLog(module = "用户模块" , action = "get/{key}" )
-    @GetMapping("get/{key}")
-    @ApiOperation("Redis根据Key获取值")
-    public String getKey(@PathVariable(value = "key")String key ){
-
-        Object json = redisService.get(key);
-        if (json != null){
-            return String.valueOf(json);
-        }
-        return "not_ok";
-    }
-
-    @ActionLog(value ="获取缓存过期时间" ,module = "用户模块" , action = "/getExpireTime/{key}" , printReturnArg = true)
-    @GetMapping("/getExpireTime/{key}")
-    @ApiOperation("获取缓存过期时间")
-    public Long mqProvider(@PathVariable String key){
-        Long expire = redisService.getExpireByKey(key);
-        return expire;
     }
 
     @PostMapping("updateUser")
@@ -76,5 +46,16 @@ public class UserController {
         return i > 0 ? "新增用户成功" : "新增用户失败";
     }
 
+    @PostMapping("transactiona1")
+    @ApiOperation("编程编程式事务")
+    @ActionLog(value ="事务测试1" ,module = "用户模块" , action = "transactiona1" , printReturnArg = true)
+    public void transactional(User user){
+        userService.testTransactional2(user);
+    }
 
+    @PostMapping("transactiona2")
+    @ApiOperation("注解事务")
+    public void transactiona2(User user){
+        userService.testTransactional2(user);
+    }
 }

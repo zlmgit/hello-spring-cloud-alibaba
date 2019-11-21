@@ -6,10 +6,12 @@ import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
@@ -30,18 +32,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insertUser(User user) {
+
+        return userMapper.insertUser(user);
+    }
+
+    @Override
+    public void testTransactional(User user) {
         int result = (int) transactionTemplate.execute(new TransactionCallback<Object>() {
             @Override
             public Object doInTransaction(TransactionStatus transactionStatus) {
-                int i = userMapper.insertUser(user);
-                int z = 1/0;
+                int i = insertUser(user);
                 if (i == 1) {
                     int i1 = updateUserById(user);
                 }
+                int z = 1/0;
                 return i;
             }
-
         });
-        return result;
+    }
+
+    @Override
+    public void testTransactional2(User user) {
+        updateUserById(user);
+        insertUser(user);
+        int i = 1/0;
     }
 }
