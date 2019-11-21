@@ -38,8 +38,8 @@ public class KaptchaConfig {
     @Value("${kaptcha.image.height}")
     private String imageHeight;
 
-    @Value("${kaptcha.session.key}")
-    private String sessionKey;
+    //@Value("${kaptcha.session.key}")
+    //private String sessionKey;
 
     @Bean
     public DefaultKaptcha getDefaultKapcha(){
@@ -53,7 +53,7 @@ public class KaptchaConfig {
         properties.setProperty("kaptcha.textproducer.char.length", textproducerCharLength);
         properties.setProperty("kaptcha.image.width", imageWidth);
         properties.setProperty("kaptcha.image.height", imageHeight);
-        properties.setProperty("kaptcha.session.key", sessionKey);
+        //properties.setProperty("kaptcha.session.key", sessionKey);
 
         Config config = new Config(properties);
         defaultKaptcha.setConfig(config);
