@@ -23,4 +23,9 @@ public class RedisService {
         Long expire = redisTemplate.getExpire(key, TimeUnit.SECONDS);
         return expire;
     }
+
+    public Long increment(String key){
+        Long increment = redisTemplate.opsForValue().increment(key, 1);
+        return increment;
+    }
 }

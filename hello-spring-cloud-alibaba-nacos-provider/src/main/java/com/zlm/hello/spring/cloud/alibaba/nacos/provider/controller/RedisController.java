@@ -3,6 +3,7 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider.controller;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.aspect.ActionLog;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.redis.RedisService;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.JsonUtils;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @Api(tags = "redis测试控制器")
@@ -50,6 +54,12 @@ public class RedisController {
         Long expire = redisService.getExpireByKey(key);
         return expire;
     }
+    @GetMapping("/increment/{key}")
+    @ApiOperation("获取缓存过期时间")
+    public Long increment(@PathVariable String key){
+        Long increment = redisService.increment(key);
+        return increment;
+    }
     @GetMapping("/insertList")
     public Long insertList(){
 
@@ -65,8 +75,25 @@ public class RedisController {
     }
     @GetMapping("/getList")
     public Object getList(){
+        List<User> listUser= Arrays.asList(redisUtil.listRange("list-zlm", 0, redisUtil.listSize("list-zlm")).toArray(new User[0]));
+        return listUser;
+    }
+    @GetMapping("/insertMap")
+    public void insertMap(){
 
-        //List<User> objects = (List<User>) redisUtil.listRange("list-zlm", 0, redisUtil.listSize("list-zlm"));
-        return null;
+        List<User> list = new ArrayList<>();
+        list.add(new User(1,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(2,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(3,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(4,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(5,"Zlm","dhvuodcbuodbcvuott"));
+        Map<String, String> collect = list.stream().collect(Collectors.toMap( item->String.valueOf(item.getId()), u -> JsonUtils.objectToJson(u)));
+        redisUtil.putAll("hash-zlm",collect);
+    }
+
+    @GetMapping("/getMapValue/{value}")
+    public Object getMapValue(@PathVariable String value){
+
+        return redisUtil.getHashKey("hash-zlm", value);
     }
 }
