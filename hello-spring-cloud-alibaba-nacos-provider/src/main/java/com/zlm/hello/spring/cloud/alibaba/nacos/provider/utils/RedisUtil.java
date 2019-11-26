@@ -1,5 +1,6 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils;
 
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;

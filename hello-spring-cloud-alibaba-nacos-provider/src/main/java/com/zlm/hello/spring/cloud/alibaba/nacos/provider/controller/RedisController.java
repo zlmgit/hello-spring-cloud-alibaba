@@ -91,9 +91,25 @@ public class RedisController {
         redisUtil.putAll("hash-zlm",collect);
     }
 
-    @GetMapping("/getMapValue/{value}")
-    public Object getMapValue(@PathVariable String value){
+    @GetMapping("/getMapValue/{key}")
+    public Object getMapValue(@PathVariable String key){
+        Object o = redisUtil.getHashKey("hash-zlm", key);
+        System.out.println(o);
+        return o;
+    }
 
-        return redisUtil.getHashKey("hash-zlm", value);
+    @GetMapping("/getHashValues")
+    public Object getHashValues(){
+
+        Map<Integer, String> entries = (Map<Integer, String>)(Object)redisUtil.getHashEntries("hash-zlm");
+        //List<User> users = entries.values().stream().filter(item -> item.getName().equals("zlm")).collect(Collectors.toList());
+        return entries;
+    }
+
+    @GetMapping("/delete/{key}")
+    public Boolean deleteKey(@PathVariable String key){
+
+
+        return  redisUtil.delete(key);
     }
 }
