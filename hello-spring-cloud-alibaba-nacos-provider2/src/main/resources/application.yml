@@ -28,6 +28,34 @@ spring:
     sentinel:
       master: mymaster
       nodes: 192.168.2.101:26379, 192.168.2.101:26380, 192.168.2.101:26381
+  #MQ
+  rabbitmq:
+    addresses: 172.16.8.101:5672
+    connection-timeout: 15000
+    password: guest
+    username: guest
+    publisher-confirms: true
+    virtual-host: /
+    ##以下两个配置一组
+    publisher-returns: true
+    template:
+      mandatory: true
+    #消费者配置
+    listener:
+      order:
+        exchange:
+          durable: true
+          ignoreDeclarationExceptions: true
+          name: exchange-2
+          type: topic
+        key: springboot.*
+        queue:
+          durable: true
+          name: queue-2
+      simple:
+        acknowledge-mode: manual
+        concurrency: 5
+        max-concurrency: 10
 
 server:
   port: 8082

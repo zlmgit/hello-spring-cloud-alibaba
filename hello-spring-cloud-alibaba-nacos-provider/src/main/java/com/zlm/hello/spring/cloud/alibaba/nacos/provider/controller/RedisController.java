@@ -64,11 +64,11 @@ public class RedisController {
     public Long insertList(){
 
         List list = new ArrayList<>();
-        list.add(new User(1,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(2,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(3,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(4,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(5,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(1,"Zlm","123"));
+        list.add(new User(2,"Zlm","456"));
+        list.add(new User(3,"Zlm","789"));
+        list.add(new User(4,"Zlm","321"));
+        list.add(new User(5,"Zlm","987"));
 
 
         return redisUtil.rightPushAll("list-zlm",list);
@@ -112,4 +112,25 @@ public class RedisController {
 
         return  redisUtil.delete(key);
     }
+
+    /**
+     * 添加set
+     * @return
+     */
+    @GetMapping("/insertSet/{value}")
+    public Long insertSet(@PathVariable String value){
+
+
+        return  redisUtil.add("zlm-set",value);
+    }
+    /**
+     * 判断set是否有value
+     * @return
+     */
+    @GetMapping("/isMember/{value}")
+    public Boolean isMember(@PathVariable String value){
+
+        return  redisUtil.isMember("zlm-set",value);
+    }
+
 }

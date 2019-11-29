@@ -137,7 +137,12 @@
             <version>2.3.2</version>
         </dependency>
         <!-- 验证码生成 -->
-
+        <!--MQ-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <!--MQ-->
     </dependencies>
 
     <build>
