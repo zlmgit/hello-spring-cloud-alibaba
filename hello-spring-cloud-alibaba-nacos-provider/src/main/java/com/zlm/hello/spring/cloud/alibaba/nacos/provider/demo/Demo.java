@@ -1,6 +1,7 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Person;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,7 +11,46 @@ import java.util.stream.Collectors;
 
 public class Demo {
     public static void main(String[] args) {
+        List<Map<Object, Object>> oneList = new ArrayList<>();
+        Map<Object, Object> oneMap = new HashMap<>();
+        oneMap.put("id", 111);
+        oneMap.put("userName", "何金荣");
+        Map<Object, Object> twoMap = new HashMap<>();
+        twoMap.put("id", 222);
+        twoMap.put("userName", "Hejinrong");
+        oneList.add(oneMap);
+        oneList.add(twoMap);
+        List<Map<Object, Object>> twoList = new ArrayList<>();
+        Map<Object, Object> threeMap = new HashMap<>();
+        threeMap.put("id", 111);
+        threeMap.put("userName", "何金荣");
+        Map<Object, Object> fourMap = new HashMap<>();
+        fourMap.put("id", 333);
+        fourMap.put("userName", "Hejinrong");
+        twoList.add(threeMap);
+        twoList.add(fourMap);
+        List<Map<Object, Object>> resultList = compareListHitData(oneList, twoList);
+        //System.out.println(resultList);
+        distinct1();
+    }
 
+    /**
+     *  通过遍历两个List中按id属性相等的归结到resultList中
+     * @param oneList
+     * @param twoList
+     */
+    public static List<Map<Object, Object>> compareListHitData(List<Map<Object, Object>> oneList, List<Map<Object, Object>> twoList) {
+        List<Map<Object, Object>> resultList = oneList.stream().map(map -> twoList.stream()
+                .filter(m -> Objects.equals(m.get("id"), map.get("id")))
+                .findFirst().map(m -> {
+                    map.putAll(m);
+                    return map;
+                }).orElse(null))
+                .filter(Objects::nonNull).collect(Collectors.toList());
+        return resultList;
+    }
+
+    public static void testLambda(){
         List<User> list = new ArrayList<>();
         list.add(new User(1,"Zlm","zxcsdv"));
         list.add(new User(2,"Zlm","dhvuodcbuodbcvuott"));
@@ -31,7 +71,6 @@ public class Demo {
         ).filter(Objects::nonNull).collect(Collectors.toList());
         ObjectMapper mapper = new ObjectMapper();
         //System.out.println(users);
-
         /*System.out.println(StringUtils.isEmpty(null));
         System.out.println(StringUtils.isEmpty(""));
         System.out.println(StringUtils.isEmpty(" "));
@@ -42,7 +81,28 @@ public class Demo {
         System.err.println(StringUtils.isBlank("  "));
         System.err.println(StringUtils.isBlank("bbjh"));
         System.err.println(StringUtils.isBlank("Bab "));
+    }
 
+    public static void distinct1(){
+
+        List<Person> persons = new ArrayList<>();
+
+        persons.add(new Person("1","zs","nan"));
+        persons.add(new Person("2","zs","nan"));
+        persons.add(new Person("3","ls","nan"));
+
+        // 根据name去重
+        List<Person> unique = persons.stream().collect(
+                Collectors.collectingAndThen(
+                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Person::getName))), ArrayList::new)
+        );
+        System.out.println(unique);
+
+        //根据name sex两个属性去重
+        List<Person> unique1 = persons.stream().collect(
+                Collectors. collectingAndThen(
+                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(o -> o.getName() + ";" + o.getSex()))), ArrayList::new)
+        );
     }
 
 }

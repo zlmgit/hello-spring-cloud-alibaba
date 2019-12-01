@@ -1,3 +1,9 @@
+host:
+  ip:
+    rabbitmq: 192.168.2.101
+    redis: 192.168.2.101
+    nacos: 127.0.0.1
+    mysql: 127.0.0.1
 spring:
   #服务名称
   application:
@@ -6,13 +12,13 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${host.ip.nacos}:8848
   #数据库连接池
   datasource:
     druid:
       username: root
       password: 111111
-      url: jdbc:mysql://127.0.0.1:3306/myshop?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useUnicode=true&characterEncoding=utf8
       initial-size: 10
       max-active: 50
       validation-query: select 1
@@ -27,11 +33,21 @@ spring:
         max-wait: -1ms
     sentinel:
       master: mymaster
-      nodes: 172.16.8.101:26379, 172.16.8.101:26380, 172.16.8.101:26381
-  #MQ配置
+      nodes: ${host.ip.redis}:26379, ${host.ip.redis}:26380, ${host.ip.redis}:26381
+        #MQ配置
+  #MQ
   rabbitmq:
-    addresses: 172.16.8.101:5672
+    addresses: ${host.ip.rabbitmq}:5672
     connection-timeout: 15000
+    password: guest
+    username: guest
+    publisher-confirms: true
+    virtual-host: /
+    ##以下两个配置一组
+    publisher-returns: true
+    template:
+      mandatory: true
+    #消费者配置
     listener:
       order:
         exchange:
@@ -47,10 +63,6 @@ spring:
         acknowledge-mode: manual
         concurrency: 5
         max-concurrency: 10
-    password: guest
-    username: guest
-    virtual-host: /
-
 server:
   port: 8081
 
