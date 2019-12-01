@@ -89,6 +89,15 @@ public class RabbitReceiver {
 		//手工ACK
 		channel.basicAck(deliveryTag, false);
 	}
-	
-	
+
+	@RabbitListener(queuesToDeclare =@Queue(value = "key-direct",durable = "true"))
+	@RabbitHandler
+	public void onDirectMessage(Message message, Channel channel) throws Exception {
+		System.err.println("--------------------------------------");
+		System.err.println("消费端message: " + message);
+		System.err.println("消费端Payload: " + message.getPayload());
+		Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
+		//手工ACK
+		channel.basicAck(deliveryTag, false);
+	}
 }

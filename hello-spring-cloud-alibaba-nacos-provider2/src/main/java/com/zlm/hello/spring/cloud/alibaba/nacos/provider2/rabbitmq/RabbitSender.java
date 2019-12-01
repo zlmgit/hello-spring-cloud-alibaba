@@ -71,4 +71,14 @@ public class RabbitSender {
 		CorrelationData correlationData = new CorrelationData("1234567890");
 		rabbitTemplate.convertAndSend("exchange-queue", "springboot.queue", msg, correlationData);
 	}
+	//发送消息方法调用: 构建Message消息
+	public void sendDirect(Object message, Map<String, Object> properties) throws Exception {
+		MessageHeaders mhs = new MessageHeaders(properties);
+		Message msg = MessageBuilder.createMessage(message, mhs);
+		rabbitTemplate.setConfirmCallback(confirmCallback);
+		//rabbitTemplate.setReturnCallback(returnCallback);
+		//id + 时间戳 全局唯一
+		CorrelationData correlationData = new CorrelationData("1234567890");
+		rabbitTemplate.convertAndSend("key-direct", msg, correlationData);
+	}
 }

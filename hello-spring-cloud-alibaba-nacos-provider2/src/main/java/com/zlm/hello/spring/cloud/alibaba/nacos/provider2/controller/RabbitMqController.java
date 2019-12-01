@@ -58,4 +58,18 @@ public class RabbitMqController {
         sendMqMessage.sendMsg(msg);
         return "ok";
     }
+    @GetMapping("/sendDirectMsg")
+    public String sendDirectMsg() throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("number", "12345");
+        properties.put("send_time", simpleDateFormat.format(new Date()));
+        List<Order> list = new ArrayList<>();
+        list.add(new Order("1","白菜"));
+        list.add(new Order("2","萝卜"));
+        String json = JsonUtils.objectToJson(list);
+        String msg = "hello";
+        rabbitSender.sendDirect(json,properties);
+        return "ok";
+    }
 }
