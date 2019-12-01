@@ -1,3 +1,100 @@
+POST http://localhost:8083/mongo/save
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2019-12-01T074654.200.json
+
+###
+
+POST http://localhost:8083/mongo/save
+
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2019-12-01T073414.415.json
+
+###
+
+POST http://localhost:8083/mongo/save
+
+Context-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2019-12-01T073337.415.json
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2019-12-01T073224.415.json
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2019-12-01T073159.415.json
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T072056.400.json
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T071902.200.txt
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T065234.200.txt
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T063102.200.txt
+
+###
+
+POST http://localhost:8083/mongo/save
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T062721.200.txt
+
+###
+
 GET http://localhost:8082/sendFanoutMessage
 Accept: */*
 Cache-Control: no-cache
@@ -340,84 +437,6 @@ Accept: */*
 Cache-Control: no-cache
 
 <> 2019-11-29T062357.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T061800.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T061745.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T061610.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T061345.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-###
-
-GET http://localhost:8082/amqpSendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T055802.200.txt
-
-###
-
-GET http://localhost:8082/amqpSendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T055720.200.txt
-
-###
-
-GET http://localhost:8082/amqpSendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T055605.200.txt
-
-###
-
-GET http://localhost:8082/amqpSendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T055550.200.txt
-
-###
-
-GET http://localhost:8082/amqpSendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T055250.200.txt
 
 ###
 

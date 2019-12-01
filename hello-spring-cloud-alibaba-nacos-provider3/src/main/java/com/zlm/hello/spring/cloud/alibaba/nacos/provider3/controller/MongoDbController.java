@@ -19,9 +19,7 @@ public class MongoDbController {
     private MongoDbService mongoDbService;
 
     @PostMapping("/mongo/save")
-    public String saveObj() {
-        Book book = new Book();
-        book.setInfo("小说");
+    public String saveObj(@RequestBody Book book) {
         return mongoDbService.saveObj(book);
     }
 
