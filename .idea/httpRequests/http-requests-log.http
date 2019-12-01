@@ -1,3 +1,48 @@
+GET http://localhost:8082/sendFanoutMessage
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T094630.200.txt
+
+###
+
+GET http://localhost:8082/sendFanoutMessage
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T094621.200.txt
+
+###
+
+GET http://localhost:8082/sendFanoutMessage
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T094216.200.txt
+
+###
+
+GET http://localhost:8082/sendDirectMsg
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T091511.200.txt
+
+###
+
+GET http://localhost:8081/sendDirectMsg
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+<> 2019-12-01T091415.404.json
+
+###
+
 GET http://localhost:8081/get/hello
 Accept: */*
 Cache-Control: no-cache
@@ -373,46 +418,6 @@ Accept: */*
 Cache-Control: no-cache
 
 <> 2019-11-29T055250.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T054501.200.txt
-
-###
-
-GET http://localhost:8082/amqpSendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T054425.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T052616.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T052159.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T052100.200.txt
 
 ###
 

@@ -90,9 +90,30 @@ public class RabbitReceiver {
 		channel.basicAck(deliveryTag, false);
 	}
 
+	//直连模式，不指定交换机走默认交换机，发送端的routingKey与队列名需完全相同
 	@RabbitListener(queuesToDeclare =@Queue(value = "key-direct",durable = "true"))
 	@RabbitHandler
 	public void onDirectMessage(Message message, Channel channel) throws Exception {
+		System.err.println("--------------------------------------");
+		System.err.println("消费端message: " + message);
+		System.err.println("消费端Payload: " + message.getPayload());
+		Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
+		//手工ACK
+		channel.basicAck(deliveryTag, false);
+	}
+
+	//fanout模式，只要是与交换机绑定的队列，都会受到消息 不需要关心routingKey
+	@RabbitListener(bindings = @QueueBinding(
+			value = @Queue(value = "fanout-queue",
+					durable="true"),
+			exchange = @Exchange(value = "fanout-exchange",
+					durable="true",
+					type= "fanout",
+					ignoreDeclarationExceptions = "true")
+	)
+	)
+	@RabbitHandler
+	public void onFanoutMessage(Message message, Channel channel) throws Exception {
 		System.err.println("--------------------------------------");
 		System.err.println("消费端message: " + message);
 		System.err.println("消费端Payload: " + message.getPayload());

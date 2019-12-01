@@ -26,28 +26,16 @@ public class RabbitMqController {
 
     @GetMapping("/sendMsg")
     public String sentMsg() throws Exception {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("number", "12345");
-        properties.put("send_time", simpleDateFormat.format(new Date()));
-        List<Order> list = new ArrayList<>();
-        list.add(new Order("1","白菜"));
-        list.add(new Order("2","萝卜"));
-        String json = JsonUtils.objectToJson(list);
+        Map<String, Object> properties = getHeadMap();
+        String json = getJsonString();
         rabbitSender.send(json,properties);
         return "ok";
     }
 
     @GetMapping("/sendQueueMsg")
     public String sendQueueMsg() throws Exception {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("number", "12345");
-        properties.put("send_time", simpleDateFormat.format(new Date()));
-        List<Order> list = new ArrayList<>();
-        list.add(new Order("1","白菜"));
-        list.add(new Order("2","萝卜"));
-        String json = JsonUtils.objectToJson(list);
+        Map<String, Object> properties = getHeadMap();
+        String json = getJsonString();
         rabbitSender.send(json,properties);
         return "ok";
     }
@@ -60,16 +48,33 @@ public class RabbitMqController {
     }
     @GetMapping("/sendDirectMsg")
     public String sendDirectMsg() throws Exception {
+        Map<String, Object> properties = getHeadMap();
+        String json = getJsonString();
+        String msg = "hello";
+        rabbitSender.sendDirect(json,properties);
+        return "ok";
+    }
+    @GetMapping("/sendFanoutMessage")
+    public String sendFanoutMessage() throws Exception {
+        Map<String, Object> properties = getHeadMap();
+        String json = getJsonString();
+        String msg = "hello";
+        rabbitSender.sendFanoutMessage(json,properties);
+        return "ok";
+    }
+
+    private Map<String, Object> getHeadMap() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Map<String, Object> properties = new HashMap<>();
         properties.put("number", "12345");
         properties.put("send_time", simpleDateFormat.format(new Date()));
+        return properties;
+    }
+
+    private String getJsonString() {
         List<Order> list = new ArrayList<>();
-        list.add(new Order("1","白菜"));
-        list.add(new Order("2","萝卜"));
-        String json = JsonUtils.objectToJson(list);
-        String msg = "hello";
-        rabbitSender.sendDirect(json,properties);
-        return "ok";
+        list.add(new Order("1", "白菜"));
+        list.add(new Order("2", "萝卜"));
+        return JsonUtils.objectToJson(list);
     }
 }
