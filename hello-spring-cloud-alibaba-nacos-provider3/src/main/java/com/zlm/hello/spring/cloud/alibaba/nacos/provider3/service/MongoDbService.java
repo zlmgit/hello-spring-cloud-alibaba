@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider3.model.Book;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class MongoDbService {
      */
     public String updateBook(Book book) {
         Query query = new Query(Criteria.where("_id").is(book.getId()));
-        Update update = new Update().set("publish", book.getPublish()).set("info", book.getInfo()).set("updateTime",
+        Update update = new Update().set("publish", book.getPublish()).set("info", book.getInfo()).set("update_time",
                 new Date());
         // updateFirst 更新查询返回结果集的第一条
         mongoTemplate.updateFirst(query, update, Book.class);
@@ -122,5 +123,33 @@ public class MongoDbService {
         return lists;
     }
 
+    /**
+     * 更新对象
+     *
+     * @param book
+     * @return
+     */
+    public String updateBookNextRetry(Book book) {
+        Query query = new Query(Criteria.where("_id").is(book.getId()));
+        Update update = new Update().set("next_retry",
+                DateUtils.addMinutes(new Date(),1)).set("info", book.getInfo()).set("update-time",
+                new Date());
+        // updateFirst 更新查询返回结果集的第一条
+        mongoTemplate.updateFirst(query, update, Book.class);
+        // updateMulti 更新查询返回结果集的全部
+        // mongoTemplate.updateMulti(query,update,Book.class);
+        // upsert 更新对象不存在则去添加
+        // mongoTemplate.upsert(query,update,Book.class);
+        return "success";
+    }
+    /**
+     *根据时间查询符合条件的
+     * @return
+     */
+    public List<Book> selectBooksByNextRetry() {
+        Query query = new Query(Criteria.where("next_retry").lt(new Date()));
+        List<Book> books = mongoTemplate.find(query, Book.class);
+        return books;
+    }
 }
 

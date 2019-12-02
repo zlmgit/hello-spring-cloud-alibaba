@@ -22,9 +22,11 @@ public class Book {
     private String info;
     @Field("publish")
     private String publish;
-    @Field("createTime")
+    @Field("create_time")
     private Date createTime;
-    @Field("updateTime")
+    @Field("update_time")
     private Date updateTime;
+    @Field("next_retry")
+    private Date nextRetry;
 }
 

@@ -108,8 +108,8 @@ kaptcha:
     #存储session key
     #key: code
 async:
-  core_pool_size: 50
-  max_pool_size: 50
-  queue_capacity: 20
-  keep_alive_seconds: 10
-  await_termination_seconds: 3
+  core_pool_size: 3
+  max_pool_size: 5
+  queue_capacity: 50
+  keep_alive_seconds: 60
+  await_termination_seconds: 60

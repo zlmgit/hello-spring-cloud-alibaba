@@ -57,6 +57,16 @@ public class MongoDbController {
     public List<Book> findByLikes(@RequestParam String search) {
         return mongoDbService.findByLikes(search);
     }
+
+    @GetMapping("/mongo/nextRetry")
+    public List<Book> selectBooksByNextRetry() {
+        return mongoDbService.selectBooksByNextRetry();
+    }
+
+    @PostMapping ("/mongo/updateNextRetry")
+    public String  updateBookNextRetry(@RequestBody Book book) {
+        return mongoDbService.updateBookNextRetry(book);
+    }
 }
 
 
