@@ -84,6 +84,7 @@ public class TestMain {
 
             Future<String[]> future =  es.submit(new SendGift(gift ,resultMap));
             futureList.add(future) ;
+            future.isDone();
 
         }
         es.shutdown();

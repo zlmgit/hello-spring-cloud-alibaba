@@ -2,6 +2,8 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider.service;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 
+import java.util.List;
+
 public interface UserService {
 
     /**
@@ -37,4 +39,6 @@ public interface UserService {
      * 两条都会回滚
      */
     void testTransactional2(User user);
+
+    int insertForeach();
 }

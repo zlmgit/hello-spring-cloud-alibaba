@@ -2,6 +2,8 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 
+import java.util.List;
+
 
 public interface UserMapper {
     /**
@@ -25,4 +27,9 @@ public interface UserMapper {
      * @return
      */
     int insertUser(User user);
+
+    int insertForeach(List<User> users);
+
+    List<User> selectUsers();
+
 }

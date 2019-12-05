@@ -1,3 +1,19 @@
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
 POST http://localhost:8083/mongo/save
 Accept: application/json
 Content-Type: application/json
@@ -421,22 +437,6 @@ Accept: */*
 Cache-Control: no-cache
 
 <> 2019-11-29T062520.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T062513.200.txt
-
-###
-
-GET http://localhost:8082/sendMsg
-Accept: */*
-Cache-Control: no-cache
-
-<> 2019-11-29T062357.200.txt
 
 ###
 

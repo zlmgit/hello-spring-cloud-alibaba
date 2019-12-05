@@ -17,4 +17,17 @@
         VALUES
             (#{name}, #{password})
     </insert>
+    <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into `myshop`.`user` (`name`, `password`)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.name},
+            #{item.password}
+            )
+        </foreach>
+    </insert>
+    <select id="selectUsers" resultType="com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User">
+        select * from `myshop`.`user`
+    </select>
 </mapper>

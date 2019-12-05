@@ -58,4 +58,10 @@ public class UserController {
     public void transactiona2(User user){
         userService.testTransactional2(user);
     }
+
+    @PostMapping("insertForeach")
+    @ApiOperation("注解事务")
+    public void insertForeach(){
+        userService.insertForeach();
+    }
 }
