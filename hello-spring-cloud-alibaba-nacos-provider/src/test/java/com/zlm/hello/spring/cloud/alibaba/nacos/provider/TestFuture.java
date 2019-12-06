@@ -29,5 +29,6 @@ public class TestFuture {
         futureTest.check(users);
         long end = System.currentTimeMillis();
         System.out.println(end-start);
+        System.out.println(FutureTest.MESSAGE_RETRY_TIME);
     }
 }

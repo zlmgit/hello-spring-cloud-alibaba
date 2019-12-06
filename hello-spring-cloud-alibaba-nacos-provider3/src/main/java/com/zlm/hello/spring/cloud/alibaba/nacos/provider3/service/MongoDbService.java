@@ -147,7 +147,10 @@ public class MongoDbService {
      * @return
      */
     public List<Book> selectBooksByNextRetry() {
-        Query query = new Query(Criteria.where("next_retry").lt(new Date()));
+        Criteria criteria = new Criteria();
+        criteria.and("name").is("明朝那些事");
+        criteria.and("next_retry").lt(new Date());
+        Query query = new Query(criteria);
         List<Book> books = mongoTemplate.find(query, Book.class);
         return books;
     }

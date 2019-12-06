@@ -1,6 +1,10 @@
 host:
   ip:
-    mongodb: 192.168.2.101
+    mongodb: 172.16.0.41
+    nacos: 127.0.0.1
+database-name:
+  mongodb: ralph
+
 spring:
   #服务名称
   application:
@@ -9,7 +13,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${host.ip.nacos}:8848,
 
 
 

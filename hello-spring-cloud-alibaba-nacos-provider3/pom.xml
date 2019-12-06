@@ -25,6 +25,11 @@
             <artifactId>hello-spring-cloud-alibaba-commons</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.zlm</groupId>
+            <artifactId>hello-spring-cloud-alibaba-commons</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
         <!-- Spring Boot Begin -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

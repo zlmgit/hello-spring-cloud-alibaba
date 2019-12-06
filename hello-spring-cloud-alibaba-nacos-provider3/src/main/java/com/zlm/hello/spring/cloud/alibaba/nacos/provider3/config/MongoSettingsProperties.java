@@ -1,6 +1,7 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider3.config;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
@@ -12,9 +13,10 @@ import java.util.List;
 @Data
 public class MongoSettingsProperties {
     @NotBlank
-    private String database = "newDB";
+    @Value("${database-name.mongodb}")
+    private String database ;
     @NotEmpty
-    private List<String> address = Arrays.asList("192.168.2.101:27017");
+    private List<String> address = Arrays.asList("172.16.0.41:27017");
     private Integer minConnectionsPerHost = 0;
     private Integer maxConnectionsPerHost = 100;
     private Integer threadsAllowedToBlockForConnectionMultiplier = 5;
