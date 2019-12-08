@@ -4,12 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Person;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Demo {
     public static void main(String[] args) {
@@ -107,7 +104,6 @@ public class Demo {
         );
     }
 
-    @Test
     public void test(){
         List<User> list = new ArrayList<>();
         list.add(new User(1,"Zlm","zxcsdv"));
