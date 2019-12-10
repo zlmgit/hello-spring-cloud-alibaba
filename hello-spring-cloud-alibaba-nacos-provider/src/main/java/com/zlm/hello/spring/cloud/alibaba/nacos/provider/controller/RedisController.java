@@ -8,6 +8,7 @@ import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,9 @@ public class RedisController {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("insert/{key}/{value}")
     @ApiOperation("Redis新增接口插入key-value")
@@ -54,10 +58,10 @@ public class RedisController {
         Long expire = redisService.getExpireByKey(key);
         return expire;
     }
-    @GetMapping("/increment/{key}")
+    @GetMapping("/increment/{key}/{length}")
     @ApiOperation("获取缓存过期时间")
-    public Long increment(@PathVariable String key){
-        Long increment = redisService.increment(key);
+    public Long increment(@PathVariable(value = "key") String key,@PathVariable(value = "length") Long length){
+        Long increment = redisTemplate.opsForValue().increment(key, length);
         return increment;
     }
     @GetMapping("/insertList")

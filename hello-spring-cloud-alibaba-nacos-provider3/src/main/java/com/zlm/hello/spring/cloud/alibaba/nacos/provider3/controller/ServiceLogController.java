@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapreduce.GroupBy;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -43,13 +44,13 @@ public class ServiceLogController {
         AggregationResults<ServiceLog> aggregate = mongoTemplate.aggregate(aggregation, "ralph_service_log", ServiceLog.class);
         return aggregate.getMappedResults();
     }
-    @GetMapping("getServiceLog")
-    public Object getServiceLog(){
+    @GetMapping("getServiceLog/{id}")
+    public Object getServiceLog(@PathVariable String id){
         Criteria criteria = new Criteria();
         criteria.and("send_state").is(0);
         criteria.and("service_name").is("ralphService.submitWithdraw");
         criteria.and("next_retry").lt(new Date());
-        Query query = new Query(Criteria.where("id").is("5de72122eebd06201ce695c5"));
+        Query query = new Query(Criteria.where("id").is(id));
         return mongoTemplate.findOne(query, ServiceLog.class);
     }
 }

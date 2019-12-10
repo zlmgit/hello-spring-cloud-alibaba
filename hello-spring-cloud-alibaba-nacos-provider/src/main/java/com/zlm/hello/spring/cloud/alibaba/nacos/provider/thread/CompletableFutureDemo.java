@@ -42,6 +42,7 @@ public class CompletableFutureDemo {
             }
             CompletableFuture[] objects = futures.toArray(new CompletableFuture[]{});
             CompletableFuture.allOf(objects).join();
+
             System.err.println("执行结束");
         }catch (Exception e){
 
