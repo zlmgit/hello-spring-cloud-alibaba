@@ -80,4 +80,12 @@ public class Demo {
             System.out.println(i-1);
         }
     }
+
+    @Test
+    public void testDecimal(){
+        BigDecimal decimal = new BigDecimal("103");
+        BigDecimal decimal1 = new BigDecimal("0.096");
+        BigDecimal setScale = decimal.multiply(decimal1).setScale(2, BigDecimal.ROUND_HALF_UP);
+        System.err.println(decimal1.compareTo(decimal));
+    }
 }

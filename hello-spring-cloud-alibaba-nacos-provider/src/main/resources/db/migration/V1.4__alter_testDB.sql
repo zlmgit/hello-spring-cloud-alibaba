@@ -1,0 +1,1 @@
+ALTER TABLE `myshop`.`test_db` COMMENT = 'hhhh';
