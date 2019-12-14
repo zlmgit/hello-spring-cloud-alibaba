@@ -68,13 +68,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insertForeach() {
         List<User> users = new ArrayList<>();
-        for(int i = 0;i<1000;i++){
+        for(int i = 0;i<10;i++){
             String string = UUID.randomUUID().toString();
             User user = new User();
             user.setName(string.substring(0,5)+i);
             user.setPassword(string);
             users.add(user);
         }
-        return userMapper.insertForeach(users);
+        int i = userMapper.insertForeach(users);
+        users.forEach(System.err::println);
+        return i;
     }
 }

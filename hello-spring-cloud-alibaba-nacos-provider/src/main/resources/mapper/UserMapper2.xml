@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao.UserMapper">
 
-    <update id="updateUserById">
+    <update id="updateUserById" >
         UPDATE `myshop`.`user`
         SET
             `id` =  #{id} ,
@@ -12,12 +12,12 @@
             `id` = #{id}
     </update>
 
-    <insert id="insertUser" parameterType="com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User">
+    <insert id="insertUser" parameterType="com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `myshop`.`user` (`name`, `password`)
         VALUES
             (#{name}, #{password})
     </insert>
-    <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
+    <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into `myshop`.`user` (`name`, `password`)
         values
         <foreach collection="list" item="item" index="index" separator=",">

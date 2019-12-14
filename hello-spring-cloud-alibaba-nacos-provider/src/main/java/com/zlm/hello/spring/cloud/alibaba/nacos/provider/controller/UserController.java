@@ -43,6 +43,7 @@ public class UserController {
             return resp;
         }
         int i = userService.insertUser(user);
+        System.err.println(user);
         return i > 0 ? "新增用户成功" : "新增用户失败";
     }
 
