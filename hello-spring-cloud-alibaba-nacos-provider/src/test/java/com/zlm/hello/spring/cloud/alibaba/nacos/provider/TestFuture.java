@@ -18,11 +18,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
-@Slf4j
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = NacosProviderApplication.class)
+    @Slf4j
+    @RunWith(SpringRunner.class)
+    @SpringBootTest(classes = NacosProviderApplication.class)
 public class TestFuture {
     @Autowired
     private CompletableFutureDemo completableFutureDemo;

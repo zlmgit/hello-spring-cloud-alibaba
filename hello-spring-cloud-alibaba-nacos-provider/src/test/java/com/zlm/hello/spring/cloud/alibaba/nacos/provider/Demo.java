@@ -83,9 +83,10 @@ public class Demo {
 
     @Test
     public void testDecimal(){
-        BigDecimal decimal = new BigDecimal("103");
-        BigDecimal decimal1 = new BigDecimal("0.096");
+        BigDecimal decimal = new BigDecimal("2sdd");
+       /* BigDecimal decimal1 = new BigDecimal("2.00");
+        BigDecimal decimal2 = new BigDecimal("0.018");
         BigDecimal setScale = decimal.multiply(decimal1).setScale(2, BigDecimal.ROUND_HALF_UP);
-        System.err.println(decimal1.compareTo(decimal));
+        System.err.println(decimal.compareTo(decimal1)!=0);*/
     }
 }

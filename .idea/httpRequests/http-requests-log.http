@@ -1,3 +1,45 @@
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2019-12-14T043552.500.json
+
+###
+
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
+POST http://localhost:8081/insertForeach
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
 GET http://localhost:8081/increment/xxx/3
 Accept: */*
 Cache-Control: no-cache
@@ -362,51 +404,6 @@ Cache-Control: no-cache
 Context-Type: application/json
 
 <> 2019-12-01T094621.200.txt
-
-###
-
-GET http://localhost:8082/sendFanoutMessage
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T094216.200.txt
-
-###
-
-GET http://localhost:8082/sendDirectMsg
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T091511.200.txt
-
-###
-
-GET http://localhost:8081/sendDirectMsg
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T091415.404.json
-
-###
-
-GET http://localhost:8081/get/hello
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T081854.200.txt
-
-###
-
-POST http://localhost:8081/get/hello
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T081846.405.json
 
 ###
 
