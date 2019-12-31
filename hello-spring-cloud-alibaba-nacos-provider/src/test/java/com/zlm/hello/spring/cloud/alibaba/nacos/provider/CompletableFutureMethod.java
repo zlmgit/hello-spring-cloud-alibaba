@@ -5,10 +5,12 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider;
 
 
 
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.ThreadPoolUtil;
 import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class CompletableFutureMethod {
@@ -325,5 +327,25 @@ public class CompletableFutureMethod {
             return s;
         }).join();
         System.out.println(result);
+    }
+
+    @Test
+    public void testDaemon() {
+        ExecutorService exs = ThreadPoolUtil.createBoundLessFixedThreadPool();
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName()+":hello执行");
+            return "hello";
+        },exs);
+        try {
+            String result = future.get();
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
