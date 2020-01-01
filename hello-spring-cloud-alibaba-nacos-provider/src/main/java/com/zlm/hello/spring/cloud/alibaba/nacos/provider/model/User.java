@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Data
 public class User implements Serializable {
@@ -37,4 +39,10 @@ public class User implements Serializable {
 
     public User() {
     }
+
+    // 多线程的future接收返回值。
+    //每一个请求对象中都有一个future接收请求。
+    private CompletableFuture<User> future;
+
+
 }

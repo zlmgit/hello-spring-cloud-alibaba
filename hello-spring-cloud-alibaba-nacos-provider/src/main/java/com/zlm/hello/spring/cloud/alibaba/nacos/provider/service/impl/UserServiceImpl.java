@@ -3,6 +3,7 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.impl;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao.UserMapper;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.UserService;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -25,10 +30,40 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TransactionTemplate transactionTemplate;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
+    private static final String HIGH_CURRENT_QUEUE ="HIGH:CURRENT:QUEUE";
+
+    LinkedBlockingQueue<User> queue = new LinkedBlockingQueue();
+
     @Override
     public User selectUserOne(Integer id) {
-        log.info("通过Id查询用户selectUserOne({})", id);
-        return userMapper.selectUserOne(id);
+        //并发安全的阻塞队列，积攒请求。（每隔N毫秒批量处理一次）
+        CompletableFuture<User> future = new CompletableFuture<>();
+        User user = new User();
+        user.setId(id);
+        user.setFuture(future);
+        queue.add(user);
+        return future.join();
+    }
+    @PostConstruct
+    public void init() {
+        // 定时任务线程池
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            int size = queue.size();
+            if (size == 0) {
+                return;
+            }
+            List<User> users = IntStream.range(0, size).boxed().map(i -> {
+                return queue.poll();
+            }).collect(Collectors.toList());
+            users.forEach(item -> {
+                User user = userMapper.selectUserOne(item.getId());
+                item.getFuture().complete(user);
+            });
+        }, 0, 10, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -68,10 +103,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insertForeach() {
         List<User> users = new ArrayList<>();
-        for(int i = 0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             String string = UUID.randomUUID().toString();
             User user = new User();
-            user.setName(string.substring(0,5)+i);
+            user.setName(string.substring(0, 5) + i);
             user.setPassword(string);
             users.add(user);
         }
@@ -79,4 +114,6 @@ public class UserServiceImpl implements UserService {
         users.forEach(System.err::println);
         return i;
     }
+
+
 }
