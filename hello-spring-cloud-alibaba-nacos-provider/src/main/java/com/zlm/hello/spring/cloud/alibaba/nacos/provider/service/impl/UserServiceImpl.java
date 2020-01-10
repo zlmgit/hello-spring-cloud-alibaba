@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     private static final String HIGH_CURRENT_QUEUE ="HIGH:CURRENT:QUEUE";
 
-    LinkedBlockingQueue<User> queue = new LinkedBlockingQueue();
+    private static final LinkedBlockingQueue<User> queue = new LinkedBlockingQueue();
 
     @Override
     public User selectUserOne(Integer id) {

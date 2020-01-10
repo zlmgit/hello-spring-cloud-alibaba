@@ -25,7 +25,8 @@ public class CompletableFutureMethod {
     @Test
     public void testRunAsync(){
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-            System.out.println("Hello");
+
+            System.out.println("isDaemon："+Thread.currentThread().isDaemon());
         });
 
         try {

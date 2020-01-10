@@ -16,7 +16,7 @@ public class MongoSettingsProperties {
     @Value("${database-name.mongodb}")
     private String database ;
     @NotEmpty
-    private List<String> address = Arrays.asList("172.16.0.41:27017");
+    private List<String> address = Arrays.asList("192.168.2.101:27017");
     private Integer minConnectionsPerHost = 0;
     private Integer maxConnectionsPerHost = 100;
     private Integer threadsAllowedToBlockForConnectionMultiplier = 5;

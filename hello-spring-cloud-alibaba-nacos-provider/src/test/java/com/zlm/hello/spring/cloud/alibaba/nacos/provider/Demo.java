@@ -5,10 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,14 +23,15 @@ public class Demo {
     @Test
     public void testLambda(){
         List<User> list = new ArrayList<>();
-        list.add(new User(1,"Zlm","123"));
+        list.add(new User(1,"Zlm",null));
         list.add(new User(2,"Zlm","456"));
         list.add(new User(3,"Zlm","789"));
         list.add(new User(4,"Zlm","321"));
         list.add(new User(1,"zs","987"));
         Map<Integer, List<User>> collect = list.parallelStream().collect(Collectors.groupingBy(User::getId));
         //System.out.println(collect);
-        System.out.println(String.format("%03d", 1000));
+        list.sort(Comparator.comparing(u -> Optional.ofNullable(u.getPassword()).orElse("")));
+        System.out.println(list);
     }
 
     @Test
@@ -88,5 +87,6 @@ public class Demo {
         BigDecimal decimal2 = new BigDecimal("0.018");
         BigDecimal setScale = decimal.multiply(decimal1).setScale(2, BigDecimal.ROUND_HALF_UP);
         System.err.println(decimal.compareTo(decimal1)!=0);*/
+        ReentrantLock lock = new ReentrantLock();
     }
 }

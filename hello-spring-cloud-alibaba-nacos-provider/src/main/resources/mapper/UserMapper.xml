@@ -3,7 +3,7 @@
 <mapper namespace="com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao.UserMapper">
 
 
-    <cache type="com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisCache"></cache>
+   <!-- <cache type="com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisCache"></cache>-->
     <select id="selectUserOne" resultType="com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User">
         select * from user where id = #{id}
     </select>

@@ -1,3 +1,41 @@
+GET http://localhost:8081/insertList
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2020-01-01T111615.200.json
+
+###
+
+GET http://localhost:8081/sendDirectMsg
+Accept: */*
+Cache-Control: no-cache
+Context-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+<> 2020-01-01T111557.404.json
+
+###
+
+GET http://localhost:8082/getUser/1
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
+POST http://localhost:8082/getUser/1
+Accept: application/json
+Content-Type: application/json
+
+{"info":"悬疑","name":"嫌疑犯X的献身"}
+
+###
+
 POST http://localhost:8081/insertForeach
 Accept: application/json
 Content-Type: application/json
@@ -368,42 +406,6 @@ Cache-Control: no-cache
 Context-Type: application/json
 
 <> 2019-12-01T065234.200.txt
-
-###
-
-POST http://localhost:8083/mongo/save
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T063102.200.txt
-
-###
-
-POST http://localhost:8083/mongo/save
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T062721.200.txt
-
-###
-
-GET http://localhost:8082/sendFanoutMessage
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T094630.200.txt
-
-###
-
-GET http://localhost:8082/sendFanoutMessage
-Accept: */*
-Cache-Control: no-cache
-Context-Type: application/json
-
-<> 2019-12-01T094621.200.txt
 
 ###
 

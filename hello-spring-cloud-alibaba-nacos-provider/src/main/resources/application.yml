@@ -1,10 +1,12 @@
 host:
   ip:
-    rabbitmq: 172.16.8.101
-    redis: 172.16.8.101
+    rabbitmq: 192.168.2.101
+    redis: 192.168.2.101
     nacos: 127.0.0.1
     mysql: 127.0.0.1
 spring:
+  jackson:
+    default-property-inclusion: non_null
   #服务名称
   application:
     name: nacos-provider
@@ -18,7 +20,7 @@ spring:
     druid:
       username: root
       password: 111111
-      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useSSL=false&useUnicode=true&amp;characterEncoding=utf-8
       initial-size: 10
       max-active: 50
       validation-query: select 1
