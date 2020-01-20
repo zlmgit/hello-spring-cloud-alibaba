@@ -1,7 +1,7 @@
 host:
   ip:
-    rabbitmq: 192.168.2.101
-    redis: 192.168.2.101
+    rabbitmq: 172.16.8.101
+    redis: 172.16.8.101
     nacos: 127.0.0.1
     mysql: 127.0.0.1
 spring:
