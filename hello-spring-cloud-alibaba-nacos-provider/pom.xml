@@ -150,7 +150,7 @@
             <artifactId>flyway-core</artifactId>
 
         </dependency>
-
+        <!--poi-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -161,12 +161,13 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.14</version>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
             <version>3.14</version>
         </dependency>
-        <dependency>
+        <!--poi-->
+        <!-- <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>org.apache.poi.xwpf.converter.core</artifactId>
             <version>1.0.6</version>
@@ -175,7 +176,14 @@
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
             <version>1.0.6</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
         </dependency>
+
     </dependencies>
 
     <build>
