@@ -1,13 +1,21 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider.controller;
 
+import cn.hutool.core.io.IoUtil;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.exception.BizException;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.redis.RedisService;
 import io.swagger.annotations.Api;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
@@ -15,8 +23,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 
 @RestController
@@ -24,6 +31,8 @@ import java.io.IOException;
 public class ImageController {
 
     private static Logger log = LoggerFactory.getLogger(ImageController.class);
+
+    public static final int cache = 10 * 1024;
 
     /* 注入Kaptcha */
     @Autowired
@@ -81,4 +90,44 @@ public class ImageController {
         }
         //return ResultUtil.success();	// 返回成功提示信息
     }
+
+    /**
+     * 远程下载图片响应出去
+     * @param resp
+     */
+    @RequestMapping(value = "/receiveImage")
+    public void receiveImage(HttpServletResponse resp) {
+        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585915316276&di=31dfdb77a6ca2f891766bc361c2e4eaf&imgtype=0&src=http%3A%2F%2Ft7.baidu.com%2Fit%2Fu%3D3616242789%2C1098670747%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D900%26h%3D1350";
+        resp.setContentType("image/jpeg");
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            HttpClient client = HttpClients.createDefault();
+            HttpGet httpget = new HttpGet(url);
+            HttpResponse response = client.execute(httpget);
+            HttpEntity entity = response.getEntity();
+            in = entity.getContent();
+            out = resp.getOutputStream();
+            IoUtil.copy(in, out, IoUtil.DEFAULT_BUFFER_SIZE);
+        } catch (Exception e) {
+            log.error("图片读取失败",e);
+        } finally {
+            if (out != null) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    log.error("响应流关闭失败",e);
+                }
+            }
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    log.error("读取流流关闭失败",e);
+                }
+            }
+        }
+    }
+
 }
