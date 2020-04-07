@@ -1,6 +1,7 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider.controller;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.http.HttpUtil;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.exception.BizException;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.redis.RedisService;
@@ -99,7 +100,12 @@ public class ImageController {
     public void receiveImage(HttpServletResponse resp) {
         String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585915316276&di=31dfdb77a6ca2f891766bc361c2e4eaf&imgtype=0&src=http%3A%2F%2Ft7.baidu.com%2Fit%2Fu%3D3616242789%2C1098670747%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D900%26h%3D1350";
         resp.setContentType("image/jpeg");
-        InputStream in = null;
+        try (ServletOutputStream outputStream = resp.getOutputStream()) {
+            HttpUtil.download(url,outputStream,true);
+        }catch (Exception e){
+            log.error("图片读取失败",e);
+        }
+        /*InputStream in = null;
         OutputStream out = null;
         try {
             HttpClient client = HttpClients.createDefault();
@@ -127,7 +133,7 @@ public class ImageController {
                     log.error("读取流流关闭失败",e);
                 }
             }
-        }
+        }*/
     }
 
 }
