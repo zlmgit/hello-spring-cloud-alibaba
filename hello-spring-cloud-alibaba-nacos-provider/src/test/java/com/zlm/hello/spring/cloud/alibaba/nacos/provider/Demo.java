@@ -1,7 +1,10 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Order;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Arrays;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -9,16 +12,21 @@ import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Demo {
     public static void main(String[] args) {
-        BigDecimal bigDecimal = new BigDecimal("20");
-        BigDecimal divide = bigDecimal.divide(BigDecimal.valueOf(100D), 4, BigDecimal.ROUND_HALF_UP);
-        System.out.println(divide);
-        double pow = Math.pow(5, 2);
-        List<Integer> MESSAGE_DELAY_LEVEL = Arrays.asList(1,5,10,30,16,60,120,180,240,300,360,420,480,540,600,1200,1800,3600,7200);
-       // System.out.println(">>>>>>"+MESSAGE_DELAY_LEVEL.get(18));
-        System.out.println( StringUtils.join("hello","-","world"));;
+        String test = "abcc";
+        char[] chars = test.toCharArray();
+        StringBuffer str = new StringBuffer();
+        Arrays.asList(chars).stream().collect(Collectors.groupingBy(a -> a)).values().forEach(item -> {
+            if (item.size() == 1) {
+                str.append(item.get(0));
+            } else {
+                str.append(item.get(0)).append((item.size() - 1));
+            }
+        });
+        System.out.println(str);
     }
     @Test
     public void testLambda(){

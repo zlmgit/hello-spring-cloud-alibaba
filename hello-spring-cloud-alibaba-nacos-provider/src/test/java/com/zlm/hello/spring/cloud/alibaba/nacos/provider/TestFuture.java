@@ -2,7 +2,9 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider;
 
 import com.google.common.base.Charsets;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao.UserMapper;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Order;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.OrderService;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.UserService;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.thread.CompletableFutureDemo;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisUtil;
@@ -28,6 +30,9 @@ public class TestFuture {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private UserService userService;
@@ -86,5 +91,10 @@ public class TestFuture {
         long end = System.currentTimeMillis();
         System.err.println("耗时："+(end-start));
         //2668
+    }
+
+    @Test
+    public void testTransactional(){
+        userService.testTransactional();
     }
 }

@@ -41,4 +41,6 @@ public interface UserService {
     void testTransactional2(User user);
 
     int insertForeach();
+
+    void testTransactional();
 }

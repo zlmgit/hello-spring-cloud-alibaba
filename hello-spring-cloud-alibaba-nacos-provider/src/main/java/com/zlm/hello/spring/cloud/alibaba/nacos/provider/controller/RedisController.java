@@ -61,8 +61,8 @@ public class RedisController {
     }
     @GetMapping("/increment/{key}/{length}")
     @ApiOperation("获取缓存过期时间")
-    public Long increment(@PathVariable(value = "key") String key,@PathVariable(value = "length") Long length){
-        Long increment = redisTemplate.opsForValue().increment(key, length);
+    public Double increment(@PathVariable(value = "key") String key,@PathVariable(value = "length") Double length){
+        Double increment = redisTemplate.opsForValue().increment(key, length);
         return increment;
     }
     @GetMapping("/insertList")

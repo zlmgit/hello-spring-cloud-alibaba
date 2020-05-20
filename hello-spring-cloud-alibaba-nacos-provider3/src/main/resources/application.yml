@@ -1,7 +1,8 @@
 host:
   ip:
-    mongodb: 172.16.0.41
+    mongodb: 172.16.8.101
     nacos: 127.0.0.1
+    mysql: 127.0.0.1
 database-name:
   mongodb: ralph
 
@@ -14,6 +15,45 @@ spring:
     nacos:
       discovery:
         server-addr: ${host.ip.nacos}:8848,
+  #数据库连接池
+  datasource:
+    druid:
+      username: root
+      password: 111111
+      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useSSL=false&useUnicode=true&amp;characterEncoding=utf-8
+      initial-size: 10
+      max-active: 50
+      validation-query: select 1
+      test-on-return: false
+      max-pool-prepared-statement-per-connection-size: 20
+  ## QQ邮箱配置
+  #mail:
+  #  host: smtp.qq.com #发送邮件服务器
+  #  username: 1552005882@qq.com #发送邮件的邮箱地址
+  #  password:  yhvdrdpsdubpbaae #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+  #  properties.mail.smtp.port: 465 #端口号465或587
+  #  from: ${spring.mail.username} # 发送邮件的地址，和上面username一致
+  #  #可以任意
+  #  properties.mail.smtp.starttls.enable: true
+  #  properties.mail.smtp.starttls.required: true
+  #  properties.mail.smtp.ssl.enable: true
+  #  default-encoding: utf-8
+  mail:
+    host: smtphm.qiye.163.com #发送邮件服务器
+    username: luming.zhu@ezhiyang.com
+    password:  Zlm #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    port: 25
+    default-encoding: utf-8
+##mybatis配置
+mybatis:
+  type-aliases-package: com.zlm.hello.spring.cloud.alibaba.nacos.provider3.model
+  mapper-locations: classpath:mapper/*Mapper*.xml
+  configuration:
+    cache-enabled: true
+logging:
+  level:
+    com.zlm.hello.spring.cloud.alibaba.nacos.provider3.dao : debug
+
 
 
 

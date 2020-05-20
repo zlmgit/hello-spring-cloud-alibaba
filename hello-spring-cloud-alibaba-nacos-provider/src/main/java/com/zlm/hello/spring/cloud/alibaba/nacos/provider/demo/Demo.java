@@ -5,32 +5,15 @@ import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Person;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Demo {
     public static void main(String[] args) {
-        List<Map<Object, Object>> oneList = new ArrayList<>();
-        Map<Object, Object> oneMap = new HashMap<>();
-        oneMap.put("id", 111);
-        oneMap.put("userName", "何金荣");
-        Map<Object, Object> twoMap = new HashMap<>();
-        twoMap.put("id", 222);
-        twoMap.put("userName", "Hejinrong");
-        oneList.add(oneMap);
-        oneList.add(twoMap);
-        List<Map<Object, Object>> twoList = new ArrayList<>();
-        Map<Object, Object> threeMap = new HashMap<>();
-        threeMap.put("id", 111);
-        threeMap.put("userName", "何金荣");
-        Map<Object, Object> fourMap = new HashMap<>();
-        fourMap.put("id", 333);
-        fourMap.put("userName", "Hejinrong");
-        twoList.add(threeMap);
-        twoList.add(fourMap);
-        List<Map<Object, Object>> resultList = compareListHitData(oneList, twoList);
-        //System.out.println(resultList);
-        distinct1();
+        Set set = new HashSet();
+        set.addAll(new HashSet());
+        System.out.println(set.size());
     }
 
     /**

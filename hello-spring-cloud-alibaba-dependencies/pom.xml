@@ -168,9 +168,59 @@
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
+                <includes>
+                    <include>**/*.pdf</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.xls</include>
+                    <include>**/*.xlsx</include>
+                    <include>**/*.html</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.schemas</include>
+                    <include>**/*.handlers</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.png</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.gif</include>
+                    <include>**/*.css</include>
+                    <include>**/*.js</include>
+                    <include>**/*.bpmn</include>
+                    <include>**/*.bpmn2</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.ico</include>
+                    <include>**/*.woff</include>
+                    <include>**/*.ttf</include>
+                    <include>META-INF/*</include>
+                    <include>**/*.yml</include>
+                </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.pdf</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.xls</include>
+                    <include>**/*.xlsx</include>
+                    <include>**/*.html</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.schemas</include>
+                    <include>**/*.handlers</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.png</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.gif</include>
+                    <include>**/*.css</include>
+                    <include>**/*.js</include>
+                    <include>**/*.bpmn</include>
+                    <include>**/*.bpmn2</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.ico</include>
+                    <include>**/*.woff</include>
+                    <include>**/*.ttf</include>
+                    <include>META-INF/*</include>
+                    <include>**/*.yml</include>
+                </includes>
             </resource>
         </resources>
     </build>

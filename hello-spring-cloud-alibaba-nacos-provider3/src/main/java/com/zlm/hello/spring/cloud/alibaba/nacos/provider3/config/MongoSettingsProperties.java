@@ -12,11 +12,10 @@ import java.util.List;
 @Component
 @Data
 public class MongoSettingsProperties {
-    @NotBlank
-    @Value("${database-name.mongodb}")
-    private String database ;
+
+    private String database = "ralph";
     @NotEmpty
-    private List<String> address = Arrays.asList("192.168.2.101:27017");
+    private List<String> address = Arrays.asList("172.16.8.101:27017");
     private Integer minConnectionsPerHost = 0;
     private Integer maxConnectionsPerHost = 100;
     private Integer threadsAllowedToBlockForConnectionMultiplier = 5;

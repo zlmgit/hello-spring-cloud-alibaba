@@ -1,7 +1,9 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.impl;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao.UserMapper;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Order;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.OrderService;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.UserService;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,9 @@ import java.util.stream.IntStream;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private TransactionTemplate transactionTemplate;
@@ -73,6 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int insertUser(User user) {
 
         return userMapper.insertUser(user);
@@ -115,5 +121,20 @@ public class UserServiceImpl implements UserService {
         return i;
     }
 
-
+    @Override
+    @Transactional
+    public void testTransactional() {
+        User user = new User();
+        user.setName("Transactional");
+        user.setPassword(UUID.randomUUID().toString());
+        insertUser(user);
+        try {
+            Order order = new Order();
+            order.setId(UUID.randomUUID().toString());
+            order.setName("Transactional");
+            orderService.insertOrder(order);
+        }catch (Exception e){
+            log.error("orderService :",e);
+        }
+    }
 }
