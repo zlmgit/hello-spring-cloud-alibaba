@@ -14,4 +14,8 @@ public class AttachmentService {
     public int insertAttachment(Attachment attachment){
         return attachmentMapper.insertAttachment(attachment);
     }
+
+    public Attachment selectAttachmentById(Integer id){
+        return attachmentMapper.selectAttachmentById(id);
+    };
 }

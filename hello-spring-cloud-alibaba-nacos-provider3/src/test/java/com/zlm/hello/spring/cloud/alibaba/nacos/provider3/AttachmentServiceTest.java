@@ -31,20 +31,15 @@ public class AttachmentServiceTest {
 
     @Test
     public void testInsert() throws IOException, SQLException {
-        final String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        System.out.println(path);
+
         Attachment attachment = new Attachment();
-        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("file/43.pdf");
-        //这个是重点
-        ByteArrayOutputStream resultByte = new ByteArrayOutputStream();
-        byte[] read_buf = new byte[64 * 1024];
-        int read_len = 0;
-        while ((read_len = inputStream .read(read_buf)) > 0) {
-            resultByte.write(read_buf, 0, read_len);
-        }
-        Blob blob = new SerialBlob(read_buf);
-        attachment.setFile(blob);
+        attachment.setName("hello");
         attachmentService.insertAttachment(attachment);
+    }
+    @Test
+    public void select()  {
+        final Attachment attachment = attachmentService.selectAttachmentById(1);
+        System.out.println(attachment);
     }
 
     public static void main(String[] args) {

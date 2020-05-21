@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Attachment {
-    private String id;
+    private Integer id;
     private String name;
     private String type;
     private String size;

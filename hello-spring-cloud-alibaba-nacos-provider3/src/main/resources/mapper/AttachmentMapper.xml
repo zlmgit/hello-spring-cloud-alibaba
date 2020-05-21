@@ -5,13 +5,17 @@
 
     <resultMap id="attachmentResultMap" type="com.zlm.hello.spring.cloud.alibaba.nacos.provider3.model.Attachment">
         <result property="id" column="id"/>
-        <result property="name" column="fileName" />
-        <result property="type" column="fileType" />
-        <result property="size" column="fileSize" />
-        <result property="file" column="content" jdbcType="BLOB" />
+        <result property="name" column="name" />
+        <result property="type" column="type" />
+        <result property="size" column="size" />
+        <result property="file" column="file" jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
     </resultMap>
 
     <insert id="insertAttachment" parameterType="com.zlm.hello.spring.cloud.alibaba.nacos.provider3.model.Attachment">
-        INSERT INTO `myshop`.`attachment`(`name`) VALUES (#{file})
+        INSERT INTO `myshop`.`attachment`(`name`,`file`) VALUES (#{name},#{file,typeHandler=org.apache.ibatis.type.BlobTypeHandler})
     </insert>
+
+    <select id="selectAttachmentById" resultMap="attachmentResultMap">
+        select `id`,`name`,`type`,`size`,`file` from `myshop`.`attachment` where id = #{id}
+    </select>
 </mapper>

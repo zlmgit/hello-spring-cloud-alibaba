@@ -3,6 +3,7 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider3.controller;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider3.model.Mail;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider3.service.MailService;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider3.utils.Tools;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
@@ -34,23 +35,12 @@ public class MailController {
         m.setText("测试内容哈哈哈哈");
         String path = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath();
         File mailFile = new File(path + "file" +File.separator + "43.pdf");
-        m.setMultipartFiles(new MultipartFile[]{fileToMultipartFile(mailFile)});
+        m.setMultipartFiles(new MultipartFile[]{Tools.fileToMultipartFile(mailFile)});
         mailService.sendMail(m);
         return "oK";
     }
 
-    /**
-     * File 转换成MultipartFile
-     * @param file
-     * @return
-     * @throws IOException
-     */
-    private MultipartFile fileToMultipartFile(File file) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream(file);
-        MultipartFile multipartFile = new MockMultipartFile(file.getName(), file.getName(),
-                "text/plain", fileInputStream);
-        return multipartFile;
-    }
+
 
 
 }
