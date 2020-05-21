@@ -1,0 +1,50 @@
+host:
+  ip:
+    nacos: 127.0.0.1
+    mysql: 127.0.0.1
+
+spring:
+  #服务名称
+  application:
+    name: nacos-provider4
+  #nacos注册中心地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${host.ip.nacos}:8848,
+  #数据库连接池
+  datasource:
+    druid:
+      username: root
+      password: 111111
+      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?serverTimezone=GMT%2B8&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
+      initial-size: 10
+      max-active: 50
+      validation-query: select 1
+      test-on-return: false
+      max-pool-prepared-statement-per-connection-size: 20
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+
+##mybatis配置
+mybatis:
+  type-aliases-package: com.zlm.hello.spring.cloud.alibaba.nacos.provider4.model
+  mapper-locations: classpath:mapper/*Mapper*.xml
+  configuration:
+    cache-enabled: true
+logging:
+  level:
+    com.zlm.hello.spring.cloud.alibaba.nacos.provider4.dao : debug
+
+
+
+
+server:
+  port: 8084
+
+#端点检查
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

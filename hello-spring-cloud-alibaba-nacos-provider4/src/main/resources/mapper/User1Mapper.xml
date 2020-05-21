@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zlm.hello.spring.cloud.alibaba.nacos.provider4.dao.User1Mapper">
+
+    <insert id="insertUser" parameterType="com.zlm.hello.spring.cloud.alibaba.nacos.provider4.model.User1">
+        INSERT INTO `myshop`.`user1`(`name`) VALUES (#{name})
+    </insert>
+
+</mapper>
