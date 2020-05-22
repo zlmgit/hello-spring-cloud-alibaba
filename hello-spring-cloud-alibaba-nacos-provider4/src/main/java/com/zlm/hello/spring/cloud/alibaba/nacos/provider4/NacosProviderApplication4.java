@@ -13,3 +13,4 @@ public class NacosProviderApplication4 {
         SpringApplication.run(NacosProviderApplication4.class);
     }
 }
+
