@@ -1,6 +1,7 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider3.service;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider3.model.Mail;
+import org.omg.CORBA.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
 /**
@@ -22,6 +27,10 @@ public class MailService {
 
     @Autowired
     private JavaMailSenderImpl mailSender;//注入邮件工具类
+
+    //template模板引擎
+    @Autowired
+    private TemplateEngine templateEngine;
 
 
     /**
@@ -101,4 +110,35 @@ public class MailService {
     }
 
 
+    /**
+     * 发送模板邮件 使用thymeleaf模板
+     * 若果使用freemarker模板
+     * Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
+     * configuration.setClassForTemplateLoading(this.getClass(), "/templates");
+     * String emailContent = FreeMarkerTemplateUtils.processTemplateIntoString(configuration.getTemplate("mail.ftl"), params);
+     *
+     * @param mail
+     */
+    public void sendTemplateMail(Mail mail) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+            messageHelper.setFrom(mailSender.getUsername());// 发送人的邮箱
+            messageHelper.setTo(mail.getTo());//发给谁  对方邮箱
+            messageHelper.setSubject(mail.getSubject()); //标题
+            //使用模板thymeleaf
+            //Context是导这个包import org.thymeleaf.context.Context;
+            Context context = new Context();
+            //定义模板数据
+            context.setVariables(mail.getAttachment());
+            //获取thymeleaf的html模板
+            String emailContent = templateEngine.process("/mail/mail", context); //指定模板路径
+            messageHelper.setText(emailContent, true);
+            //发送邮件
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            logger.error("模板邮件发送失败->message:{}", e.getMessage());
+            throw new RuntimeException("邮件发送失败");
+        }
+    }
 }

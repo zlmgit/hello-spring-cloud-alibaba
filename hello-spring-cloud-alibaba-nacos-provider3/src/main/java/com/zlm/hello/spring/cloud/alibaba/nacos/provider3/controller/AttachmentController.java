@@ -36,7 +36,7 @@ public class AttachmentController {
     @GetMapping("/insert")
     public String insertAttachment() throws IOException, SQLException {
         Attachment attachment = new Attachment();
-        File file = new File(ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath() + "file" +File.separator + "43.pdf");
+        File file = new File(ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath() + "templates/file" +File.separator + "43.pdf");
         final MultipartFile multipartFile = Tools.fileToMultipartFile(file);
         attachment.setFile(multipartFile.getBytes());
         attachment.setName(file.getName());

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 邮件信息类（参照RFC822）
@@ -23,6 +24,10 @@ public class Mail {
     private String error;//报错信息
     @JsonIgnore
     private MultipartFile[] multipartFiles;//邮件附件
+
+    //附加，value 文件的绝对地址/动态模板数据
+    private Map<String, Object> attachment;
+
 
 
 }
