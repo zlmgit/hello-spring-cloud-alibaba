@@ -32,6 +32,10 @@ public class MailService {
     @Autowired
     private TemplateEngine templateEngine;
 
+    static {
+        System.setProperty("mail.mime.splitlongparameters","false");
+    }
+
 
     /**
      * 发送邮件

@@ -7,10 +7,7 @@ import com.zlm.hello.spring.cloud.alibaba.nacos.provider3.utils.Tools;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -40,8 +37,11 @@ public class MailController {
         return "oK";
     }
 
-    @GetMapping("/templateMail")
-    public String mail(Mail mail){
+    @GetMapping("/templateMail/{to}")
+    public String mail(@PathVariable("to") String to){
+        Mail mail = new Mail();
+        mail.setSubject("这是模板主题");
+        mail.setTo(to);
         try {
             Map<String,Object> map = new HashMap<>();
             map.put("username","我变大了");

@@ -58,7 +58,7 @@ logging:
 
 
 server:
-  port: 8084
+  port: 8083
 
 #端点检查
 management:
