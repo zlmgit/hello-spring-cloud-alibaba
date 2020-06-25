@@ -6,15 +6,32 @@ import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Demo {
     public static void main(String[] args) {
-        Set set = new HashSet();
-        set.addAll(new HashSet());
-        System.out.println(set.size());
+        System.out.println(formatToNumber(new BigDecimal("3.435")));
+        System.out.println(formatToNumber(new BigDecimal(0)));
+        System.out.println(formatToNumber(new BigDecimal("0.00")));
+        System.out.println(formatToNumber(new BigDecimal("0.001")));
+        System.out.println(formatToNumber(new BigDecimal("0.006")));
+        System.out.println(formatToNumber(new BigDecimal("0.206")));
+        List<User> list = new ArrayList<>();
+        list.add(new User(1,"Zlm","zxcsdv"));
+        list.add(new User(1,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(1,"hhh","dhvuodcbuodbcvuott"));
+        list.add(new User(4,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(5,"Zlm","111"));
+        list.forEach(item->{
+            if (item.getId()==4) {
+                return;
+            }
+            System.out.println(item);
+        });
     }
+
 
     /**
      *  通过遍历两个List中按id属性相等的归结到resultList中
@@ -35,10 +52,10 @@ public class Demo {
     public static void testLambda(){
         List<User> list = new ArrayList<>();
         list.add(new User(1,"Zlm","zxcsdv"));
-        list.add(new User(2,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(1,"Zlm","dhvuodcbuodbcvuott"));
         list.add(new User(1,"hhh","dhvuodcbuodbcvuott"));
         list.add(new User(4,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(5,"Zlm","dhvuodcbuodbcvuott"));
+        list.add(new User(5,"Zlm","111"));
         Map<String,Object> map = new HashMap();
         map.put("name","Zlm");map.put("age",10);
         Map<String,Object> map1 = new HashMap();
@@ -57,12 +74,17 @@ public class Demo {
         System.out.println(StringUtils.isEmpty(""));
         System.out.println(StringUtils.isEmpty(" "));
         System.out.println(StringUtils.isEmpty("baba"));
-        System.out.println(StringUtils.isEmpty("baba "));*/
+        System.out.println(StringUtils.isEmpty("baba "));
         System.err.println(StringUtils.isBlank(null));
         System.err.println(StringUtils.isBlank(""));
         System.err.println(StringUtils.isBlank("  "));
         System.err.println(StringUtils.isBlank("bbjh"));
-        System.err.println(StringUtils.isBlank("Bab "));
+        System.err.println(StringUtils.isBlank("Bab "));*/
+        final User user = list.stream().max((c1, c2) -> {
+            return c1.getId().compareTo(c2.getId());
+        }).get();
+        System.out.println(user);
+
     }
 
     public static void distinct1(){
@@ -100,5 +122,23 @@ public class Demo {
         System.err.println(collect);
         List<User> collect1 = list.stream().limit(i).collect(Collectors.toList());
         System.err.println(collect1);
+    }
+
+    /**
+     * @desc 1.0~1之间的BigDecimal小数，格式化后失去前面的0,则前面直接加上0。
+     * 2.传入的参数等于0，则直接返回字符串"0.00"
+     * 3.大于1的小数，直接格式化返回字符串
+     * @param obj传入的小数
+     * @return
+     */
+    public static String formatToNumber(BigDecimal obj) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        if(obj.compareTo(BigDecimal.ZERO)==0) {
+            return "0.00";
+        }else if(obj.compareTo(BigDecimal.ZERO)>0&&obj.compareTo(new BigDecimal(1))<0){
+            return "0"+df.format(obj);
+        }else {
+            return df.format(obj);
+        }
     }
 }
