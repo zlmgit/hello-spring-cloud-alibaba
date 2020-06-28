@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -166,7 +166,7 @@ public class HttpClientUtil {
         }
       }
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-      builder.setCharset(Charset.forName("utf-8"));
+      builder.setCharset(StandardCharsets.UTF_8);
       //加上此行代码解决返回中文乱码问题
       builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
       //    文件传输http请求头(multipart/form-data)
@@ -182,7 +182,7 @@ public class HttpClientUtil {
         }
       }
       //    字节传输http请求头(application/json)
-      ContentType contentType = ContentType.create("application/json", Charset.forName("UTF-8"));
+      ContentType contentType = ContentType.create("application/json", StandardCharsets.UTF_8);
       if (otherParams != null && otherParams.size() > 0) {
         for (Map.Entry<String, String> e : otherParams.entrySet()) {
           String value = e.getValue();
@@ -199,7 +199,7 @@ public class HttpClientUtil {
       HttpEntity responseEntity = response.getEntity();
       if (responseEntity != null) {
         // 将响应内容转换为字符串
-        result = EntityUtils.toString(responseEntity, Charset.forName("UTF-8"));
+        result = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
       }
     } catch (IOException e) {
       e.printStackTrace();
