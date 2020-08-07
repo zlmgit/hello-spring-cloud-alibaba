@@ -2,6 +2,7 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider4;
 
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider4.dao.User1Mapper;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider4.model.User1;
+import com.zlm.hello.spring.cloud.alibaba.nacos.provider4.service.PersonMigrationService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +16,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class AuthServiceTest {
 
 
+    @Autowired
+    private PersonMigrationService personMigrationService;
+
     @Test
     public void insert(){
-
+        personMigrationService.downSql();
     }
 }

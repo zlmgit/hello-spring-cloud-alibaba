@@ -1,3 +1,51 @@
+POST http://localhost:8084/migration/person/downSql?other=哈哈哈哈哈
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-07-20T115358.200.txt
+
+###
+
+POST http://localhost:8084/migration/person/downSql?other=哈哈哈哈哈
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-07-14T024749.200.txt
+
+###
+
+POST http://localhost:8084/person/downSql?other=哈哈哈哈哈
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-07-14T024735.404.json
+
+###
+
+GET http://localhost:8084/image/get?other=哈哈哈哈哈
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-29T112221.200.txt
+
+###
+
+GET http://localhost:8084/image/post?other=哈哈哈哈哈
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-29T112155.405.json
+
+###
+
+POST http://localhost:8084/image/post?other=哈哈哈哈哈
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-29T111828.200.txt
+
+###
+
 GET http://localhost:8084/auth/rest/1271654868a2f979fc23028625277956
 Accept: */*
 Cache-Control: no-cache
@@ -341,46 +389,6 @@ Accept: */*
 Cache-Control: no-cache
 
 <> 2020-05-25T030146.404.json
-
-###
-
-GET http://localhost:8083/send/13477407066@163.com
-Accept: */*
-Cache-Control: no-cache
-
-###
-
-GET http://localhost:8084/send/13477407066@163.com
-Accept: */*
-Cache-Control: no-cache
-
-<> 2020-05-25T025855.404.json
-
-###
-
-GET http://localhost:8084/send/13477407066@163.com
-Accept: */*
-Cache-Control: no-cache
-
-<> 2020-05-25T025854.404.json
-
-###
-
-GET http://localhost:8084/attachment/get/2
-
-<> 2020-05-21T024909.200.txt
-
-###
-
-GET http://localhost:8084/attachment/get/2
-
-<> 2020-05-21T023916.200.txt
-
-###
-
-GET http://localhost:8084/attachment/get/2
-
-<> 2020-05-21T023238.200.txt
 
 ###
 
