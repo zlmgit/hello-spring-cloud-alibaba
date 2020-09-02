@@ -2,13 +2,13 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider4;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -50,7 +50,25 @@ public class Test {
         List<TreeMenuNode> result = menuNodes.stream()
                 .filter(permission -> permission.getPid().equals("0"))
                 .map(permission -> covert(permission, menuNodes)).collect(Collectors.toList());
-        System.out.println(JSONObject.toJSONString(result));
+        //System.out.println(JSONObject.toJSONString(result));
+
+        //test1();
+        GuardedObject guardedObject = new GuardedObject();
+        new Thread(()->{
+            log.info("開始");
+            final Object o = guardedObject.get(2000L);
+            log.info("結果：{}",o);
+        },"t1").start();
+
+        new Thread(()->{
+            try {
+                log.info("開始");
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            guardedObject.complete("hello");
+        },"t2").start();
     }
 
     /**
@@ -145,16 +163,26 @@ public class Test {
     public static void test1() {
         List<Student> menu = Arrays.asList(
                 new Student("刘一", 721, true, Student.GradeType.THREE),
-                new Student("陈二", 637, true, Student.GradeType.THREE),
+                new Student("陈二", 637, true, Student.GradeType.THREE)
+               );
+
+        List<Student> menu1 = Arrays.asList(
                 new Student("张三", 666, true, Student.GradeType.THREE),
-                new Student("李四", 531, true, Student.GradeType.TWO),
+                new Student("李四", 531, true, Student.GradeType.TWO)
+              );
+
+        List<Student> menu3 = Arrays.asList(
                 new Student("王五", 483, false, Student.GradeType.THREE),
                 new Student("赵六", 367, true, Student.GradeType.THREE),
                 new Student("孙七", 499, false, Student.GradeType.ONE));
 
-        List<Student> studentList = menu.stream().collect(
-                Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
-        System.out.println(studentList);
+        List<List<Student>> list = new ArrayList<>();
+        list.add(menu);
+        list.add(menu1);
+        list.add(menu3);
+
+        final List<Student> collect = list.stream().flatMap(Collection::stream).collect(Collectors.toList());
+        System.out.println(collect);
     }
 
     public static void test3() throws InterruptedException {
@@ -174,12 +202,45 @@ public class Test {
             }
         });
         thread.start();
-
         TimeUnit.SECONDS.sleep(6);
         thread.interrupt();
         log.info("打断，{}",thread.isInterrupted());
     }
 
 
+}
+
+class GuardedObject{
+
+    private Object response;
+
+    public Object get(Long timeOut){
+        synchronized(this){
+            long startTime = System.currentTimeMillis();
+            long passTime = 0;
+            while (response==null){
+                long waitTime  = timeOut - passTime ;
+                if (waitTime <=0 ) {
+                    break;
+                }
+                try {
+                    this.wait(waitTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                passTime = System.currentTimeMillis() - startTime;
+            }
+        }
+
+        return response;
+    }
+
+
+    public void complete(Object response){
+        synchronized (this) {
+            this.response = response;
+            this.notify();
+        }
+    }
 
 }
