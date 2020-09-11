@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Slf4j(topic = "c.test")
@@ -69,6 +70,12 @@ public class Test {
             }
             guardedObject.complete("hello");
         },"t2").start();
+
+        AtomicInteger atomicInteger = new AtomicInteger(100);
+        final int i = atomicInteger.get();
+        int update = i-20;
+        atomicInteger.compareAndSet(i,update);
+        System.err.println(atomicInteger.get());
     }
 
     /**

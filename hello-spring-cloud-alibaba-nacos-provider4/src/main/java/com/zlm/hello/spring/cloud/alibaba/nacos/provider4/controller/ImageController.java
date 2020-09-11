@@ -1,13 +1,17 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider4.controller;
 
+import cn.hutool.core.util.IdUtil;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider4.utils.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,5 +84,48 @@ public class ImageController {
         Map<String, String> headerParams = new HashMap<>();
         headerParams.put("Cookie","JSESSIONID="+cookie);
         return HttpClientUtil.uploadFile(url,null,param,headerParams);
+    }
+
+    @PostMapping("/decodeFromString")
+    public String postFile(@RequestParam("str") String file)  {
+        log.info("请求进入");
+        byte[] bytes = Base64Utils.decodeFromString(file);
+        String fileName = IdUtil.simpleUUID()+".pdf";
+        getFileByBytes(bytes,"C:\\Users\\zy\\Desktop\\身份证",fileName);
+        return "ok";
+    }
+
+    //将Byte数组转换成文件
+    public static void getFileByBytes(byte[] bytes, String filePath, String fileName) {
+        BufferedOutputStream bos = null;
+        FileOutputStream fos = null;
+        File file = null;
+        try {
+            File dir = new File(filePath);
+            if (!dir.exists() && dir.isDirectory()) {// 判断文件目录是否存在
+                dir.mkdirs();
+            }
+            file = new File(filePath + "\\" + fileName);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            bos.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

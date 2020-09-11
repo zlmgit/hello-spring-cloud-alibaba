@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zlm.hello.spring.cloud.alibaba.nacos.provider4.dao.PersonMigrationMapper">
+
+  <insert id="batchSave" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO `person_migration`
+      (`name`, `cert_no`, `mobile`, `account_type`, `account_no`, `bank_no`, `alipay_no`, `open_id`, `card_image_front`, `card_image_back`, `face_recognition_status`, `face_recognition_url`, `taxpayer_code`)
+      VALUES
+      <foreach collection="list" item="item" separator=",">
+      (#{item.name}, #{item.certNo}, #{item.mobile}, #{item.accountType}, #{item.accountNo}, #{item.bankNo}, #{item.alipayNo}, #{item.openId}, #{item.cardImageFront}, #{item.cardImageBack}, #{item.faceRecognitionStatus}, #{item.faceRecognitionUrl}, #{item.taxpayerCode})
+      </foreach>
+  </insert>
+    <select id="selectPersonMigration" resultType="com.zlm.hello.spring.cloud.alibaba.nacos.provider4.model.PersonMigration">
+        SELECT * FROM `person_migration` WHERE `flag` = 0
+    </select>
+
+    <update id="updateFlag" >
+        UPDATE `person_migration` SET `flag` = #{flag} WHERE `id` = #{id}
+    </update>
+
+    <select id="selectSuccess" resultType="com.zlm.hello.spring.cloud.alibaba.nacos.provider4.model.PersonMigration">
+        SELECT `name`, `cert_no` AS certNo,`taxpayer_code` AS taxpayerCode, `face_recognition_status` AS faceRecognitionStatus FROM `person_migration` WHERE `flag` = 3
+    </select>
+    <update id="updatePersonMigration" parameterType="com.zlm.hello.spring.cloud.alibaba.nacos.provider4.model.PersonMigration">
+       UPDATE `person_migration` SET `code` = #{code}, `msg` = #{msg} WHERE `id` = #{id} and cert_no = #{certNo}
+    </update>
+</mapper>
+
