@@ -1,9 +1,9 @@
 host:
   ip:
-    rabbitmq: 172.16.8.101
-    redis: 172.16.8.101
+    rabbitmq: 10.32.7.86
+    redis: 127.0.0.1
     nacos: 127.0.0.1
-    mysql: 127.0.0.1
+    mysql: 10.32.7.86
 spring:
   #服务名称
   application:
@@ -17,7 +17,7 @@ spring:
   datasource:
     druid:
       username: root
-      password: 111111
+      password: 1234
       url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useUnicode=true&characterEncoding=utf8
       initial-size: 10
       max-active: 50
@@ -31,9 +31,10 @@ spring:
         max-active: 8
         max-idle: 8
         max-wait: -1ms
-    sentinel:
-      master: mymaster
-      nodes: ${host.ip.redis}:26379, ${host.ip.redis}:26380, ${host.ip.redis}:26381
+    cluster:
+#      nodes: ${host.ip.redis}:26379, ${host.ip.redis}:26380, ${host.ip.redis}:26381
+      nodes: ${host.ip.redis}:6379
+      max-redirects: 3
   #MQ
   rabbitmq:
     addresses: ${host.ip.rabbitmq}:5672
@@ -64,7 +65,7 @@ spring:
         max-concurrency: 10
 
 server:
-  port: 8082
+  port: 28082
 
 #端点检查
 management:

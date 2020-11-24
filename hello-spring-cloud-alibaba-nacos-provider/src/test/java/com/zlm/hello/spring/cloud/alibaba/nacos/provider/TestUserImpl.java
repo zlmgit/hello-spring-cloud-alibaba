@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = NacosProviderApplication.class)
+@SpringBootTest(classes = NacosProviderApplication1.class)
 @AutoConfigureMockMvc
 public class TestUserImpl {
 

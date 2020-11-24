@@ -7,9 +7,17 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    #sentinel监控台配置
+    sentinel:
+      transport:
+        #向监控台暴露的端口
+        port: 8719
+        #监控台ip
+        dashboard: localhost:38080
 
 server:
-  port: 9091
+  port: 29091
+
 
 #端点检查
 management:

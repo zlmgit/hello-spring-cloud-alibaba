@@ -2,7 +2,7 @@ host:
   ip:
     mongodb: 172.16.8.101
     nacos: 127.0.0.1
-    mysql: 127.0.0.1
+    mysql: 10.32.7.86
 database-name:
   mongodb: ralph
 
@@ -19,8 +19,8 @@ spring:
   datasource:
     druid:
       username: root
-      password: 111111
-      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useSSL=false&useUnicode=true&amp;characterEncoding=utf-8
+      password: 1234
+      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useSSL=false&useUnicode=true&characterEncoding=utf-8
       initial-size: 10
       max-active: 50
       validation-query: select 1
@@ -58,7 +58,7 @@ logging:
 
 
 server:
-  port: 8083
+  port: 28083
 
 #端点检查
 management:

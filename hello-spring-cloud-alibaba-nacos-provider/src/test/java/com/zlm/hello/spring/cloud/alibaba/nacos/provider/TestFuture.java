@@ -2,7 +2,6 @@ package com.zlm.hello.spring.cloud.alibaba.nacos.provider;
 
 import com.google.common.base.Charsets;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao.UserMapper;
-import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Order;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.OrderService;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.service.UserService;
@@ -23,7 +22,7 @@ import java.util.List;
 
     @Slf4j
     @RunWith(SpringRunner.class)
-    @SpringBootTest(classes = NacosProviderApplication.class)
+    @SpringBootTest(classes = NacosProviderApplication1.class)
 public class TestFuture {
     @Autowired
     private CompletableFutureDemo completableFutureDemo;

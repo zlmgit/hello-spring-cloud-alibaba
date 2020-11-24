@@ -1,15 +1,15 @@
 host:
   ip:
-    rabbitmq: 172.16.8.101
-    redis: 172.16.8.101
+    rabbitmq: 10.32.7.86
+    redis: 127.0.0.1
     nacos: 127.0.0.1
-    mysql: 127.0.0.1
+    mysql: 10.32.7.86
 spring:
   jackson:
     default-property-inclusion: non_null
   #服务名称
   application:
-    name: nacos-provider
+    name: nacos-provider1
   #nacos注册中心地址
   cloud:
     nacos:
@@ -19,8 +19,8 @@ spring:
   datasource:
     druid:
       username: root
-      password: 111111
-      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useSSL=false&useUnicode=true&amp;characterEncoding=utf-8
+      password: 1234
+      url: jdbc:mysql://${host.ip.mysql}:3306/myshop?useSSL=false&useUnicode=true&characterEncoding=utf-8
       initial-size: 10
       max-active: 50
       validation-query: select 1
@@ -33,9 +33,12 @@ spring:
         max-active: 8
         max-idle: 8
         max-wait: -1ms
-    sentinel:
-      master: mymaster
-      nodes: ${host.ip.redis}:26379, ${host.ip.redis}:26380, ${host.ip.redis}:26381
+    cluster:
+      nodes: ${host.ip.redis}:6379
+      max-redirects: 3
+#    sentinel:
+#      master: mymaster
+#      nodes: ${host.ip.redis}:26379, ${host.ip.redis}:26380, ${host.ip.redis}:26381
         #MQ配置
   #MQ
   rabbitmq:
@@ -66,7 +69,7 @@ spring:
         concurrency: 5
         max-concurrency: 10
 server:
-  port: 8081
+  port: 28081
 
 #端点检查
 management:
