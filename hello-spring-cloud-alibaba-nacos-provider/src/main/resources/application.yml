@@ -1,9 +1,9 @@
 host:
   ip:
-    rabbitmq: 10.32.7.86
+    rabbitmq: 127.0.0.1
     redis: 127.0.0.1
     nacos: 127.0.0.1
-    mysql: 10.32.7.86
+    mysql: 127.0.0.1
 spring:
   jackson:
     default-property-inclusion: non_null

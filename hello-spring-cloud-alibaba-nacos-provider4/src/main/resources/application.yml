@@ -1,7 +1,7 @@
 host:
   ip:
     nacos: 127.0.0.1
-    mysql: 10.32.7.86
+    mysql: 127.0.0.1
 
 spring:
   #服务名称

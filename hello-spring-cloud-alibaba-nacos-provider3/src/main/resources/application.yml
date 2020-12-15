@@ -2,7 +2,7 @@ host:
   ip:
     mongodb: 172.16.8.101
     nacos: 127.0.0.1
-    mysql: 10.32.7.86
+    mysql: 127.0.0.1
 database-name:
   mongodb: ralph
 
