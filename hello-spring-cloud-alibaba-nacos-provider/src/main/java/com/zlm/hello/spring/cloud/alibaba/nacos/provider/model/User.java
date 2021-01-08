@@ -31,10 +31,19 @@ public class User implements Serializable {
     @ApiModelProperty("用户密码")
     private String password;
 
+    private Integer age;
+
     public User(Integer id, @NotBlank(message = "请填写名字") @Length(max = 100, message = "用户名字，请重新填写") String name, @NotBlank(message = "请填写密码") @Length(max = 100, message = "用户名字，请重新填写") @Pattern(regexp = "^[a-zA-Z]\\w{5,17}$", message = "以字母开头，长度在6~18之间，只能包含字母、数字和下划线") String password) {
         this.id = id;
         this.name = name;
         this.password = password;
+    }
+
+    public User(Integer id, @NotBlank(message = "请填写名字") @Length(max = 100, message = "用户名字，请重新填写") String name, @NotBlank(message = "请填写密码") @Length(max = 100, message = "用户名字，请重新填写") @Pattern(regexp = "^[a-zA-Z]\\w{5,17}$", message = "以字母开头，长度在6~18之间，只能包含字母、数字和下划线") String password, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.age = age;
     }
 
     public User() {

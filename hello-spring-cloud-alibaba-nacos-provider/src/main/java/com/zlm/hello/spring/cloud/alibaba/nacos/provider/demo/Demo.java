@@ -1,35 +1,35 @@
 package com.zlm.hello.spring.cloud.alibaba.nacos.provider.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.Person;
 import com.zlm.hello.spring.cloud.alibaba.nacos.provider.model.User;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Demo {
-    public static void main(String[] args) {
-        System.out.println(formatToNumber(new BigDecimal("3.435")));
-        System.out.println(formatToNumber(new BigDecimal(0)));
-        System.out.println(formatToNumber(new BigDecimal("0.00")));
-        System.out.println(formatToNumber(new BigDecimal("0.001")));
-        System.out.println(formatToNumber(new BigDecimal("0.006")));
-        System.out.println(formatToNumber(new BigDecimal("0.206")));
-        List<User> list = new ArrayList<>();
-        list.add(new User(1,"Zlm","zxcsdv"));
-        list.add(new User(1,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(1,"hhh","dhvuodcbuodbcvuott"));
-        list.add(new User(4,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(5,"Zlm","111"));
-        list.forEach(item->{
-            if (item.getId()==4) {
-                return;
-            }
-            System.out.println(item);
-        });
+    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        /*ArrayList<Integer> integers = Lists.newArrayList(1, 2, 3, 4, 5);
+        final Map<Boolean, List<Integer>> listMap = integers.stream().collect(Collectors.partitioningBy(num -> num.equals(6)));
+        final List<Integer> falseList = listMap.get(Boolean.FALSE);
+        final List<Integer> trueList = listMap.get(Boolean.TRUE);
+        System.out.println("falseList:"+falseList);
+        System.out.println("trueList:"+trueList);*/
+        testLambda();
+
+        //demo01();
     }
 
 
@@ -51,40 +51,30 @@ public class Demo {
 
     public static void testLambda(){
         List<User> list = new ArrayList<>();
-        list.add(new User(1,"Zlm","zxcsdv"));
-        list.add(new User(1,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(1,"hhh","dhvuodcbuodbcvuott"));
-        list.add(new User(4,"Zlm","dhvuodcbuodbcvuott"));
-        list.add(new User(5,"Zlm","111"));
-        Map<String,Object> map = new HashMap();
-        map.put("name","Zlm");map.put("age",10);
-        Map<String,Object> map1 = new HashMap();
-        map1.put("name","hhh");map1.put("age",20);
-        List<Map<String,Object>> lists = new ArrayList<>();
-        lists.add(map);lists.add(map1);
-        List<String> names = lists.stream().map(item -> (String) item.get("name")).collect(Collectors.toList());
-        List<User> users = names.stream().map(item ->
-                list.stream().filter(user -> item.equals(user.getName()))
-                        .findAny()
-                        .orElse(null)
-        ).filter(Objects::nonNull).collect(Collectors.toList());
-        ObjectMapper mapper = new ObjectMapper();
-        //System.out.println(users);
-        /*System.out.println(StringUtils.isEmpty(null));
-        System.out.println(StringUtils.isEmpty(""));
-        System.out.println(StringUtils.isEmpty(" "));
-        System.out.println(StringUtils.isEmpty("baba"));
-        System.out.println(StringUtils.isEmpty("baba "));
-        System.err.println(StringUtils.isBlank(null));
-        System.err.println(StringUtils.isBlank(""));
-        System.err.println(StringUtils.isBlank("  "));
-        System.err.println(StringUtils.isBlank("bbjh"));
-        System.err.println(StringUtils.isBlank("Bab "));*/
-        final User user = list.stream().max((c1, c2) -> {
-            return c1.getId().compareTo(c2.getId());
-        }).get();
-        System.out.println(user);
+        list.add(new User(1,"xx","zxcsdv"));
+        list.add(new User(1,"ls","y6"));
+        list.add(new User(1,"hhh","y4"));
+        list.add(new User(5,"zs","111"));
+        list.add(new User(4,"xx","ytry"));
+        List<User> list2 = new ArrayList<>();
+        list2.add(new User(4,"xx","dg",10));
+        list2.add(new User(5,"zs","ee",20));
+        Map<String, User> map = list2.stream().collect(Collectors.toMap(User::getName, u -> u));
+        list2.get(0).setAge(50);
+        System.out.println(list2.get(0));
+        System.out.println(map.get("xx"));
 
+        List<User> collect = list.stream().filter(user -> {
+            return list2.stream().anyMatch(user2 ->
+            {
+                if (user2.getName().equals(user.getName())){
+                    user.setAge(user2.getAge());
+                    return true;
+                }
+                return false;
+            });
+        }).collect(Collectors.toList());
+        System.out.println(collect);
     }
 
     public static void distinct1(){
@@ -140,5 +130,33 @@ public class Demo {
         }else {
             return df.format(obj);
         }
+    }
+
+    public static void demo01(){
+        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+        for (int i=1;i<9;i++){
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",i);
+            map.put("name","张三丰"+i);
+            list.add(map);
+        }
+        Stream<Map<String, Object>> s1 = list.stream();
+        list.stream().forEach(map-> System.out.println(map));
+
+        List<Map<String,Object>> list2 = new ArrayList<Map<String,Object>>();
+        for (int i=1;i<5;i++){
+            Map<String,Object> map2 = new HashMap<>();
+            map2.put("id",i);
+            map2.put("grade",i+60);
+            list2.add(map2);
+        }
+        list2.stream().forEach(s-> System.out.println(s));
+
+        List<Map<String, Object>> resultList2 = list.stream().map(m->{
+            m.put("grade",0);
+            list2.stream().filter(m2->Objects.equals(m.get("id"), m2.get("id"))).forEach(s-> m.put("grade",s.get("grade")));
+            return m;
+        }).collect(Collectors.toList());
+        resultList2.stream().forEach(s-> System.out.println(s));
     }
 }
