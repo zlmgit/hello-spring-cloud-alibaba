@@ -16,7 +16,7 @@ spring:
   datasource:
     druid:
       username: root
-      password: 111111
+      password: 1234
       url: jdbc:mysql://${host.ip.mysql}:3306/myshop?serverTimezone=GMT%2B8&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
       initial-size: 10
       max-active: 50
@@ -40,7 +40,7 @@ logging:
 
 
 server:
-  port: 8084
+  port: 28084
 
 #端点检查
 management:

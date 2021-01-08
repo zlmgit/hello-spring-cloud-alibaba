@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.zlm.hello.spring.cloud.alibaba.nacos.provider.dao")
-public class NacosProviderApplication {
+public class NacosProviderApplication1 {
     public static void main(String[] args) {
-        SpringApplication.run(NacosProviderApplication.class, args);
+        SpringApplication.run(NacosProviderApplication1.class, args);
     }
 
     @RestController
